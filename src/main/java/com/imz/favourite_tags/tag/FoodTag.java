@@ -1,6 +1,7 @@
 package com.imz.favourite_tags.tag;
 
 import net.minecraft.item.Item;
+import net.minecraft.nbt.CompoundNBT;
 
 import java.util.ArrayList;
 
@@ -63,4 +64,17 @@ public class FoodTag implements ITag{
     }
 
 
+    @Override
+    public CompoundNBT serializeNBT() {
+        CompoundNBT compoundNBT = new CompoundNBT();
+        compoundNBT.putString("tag",registryName);
+        compoundNBT.putString("rarity",tagRarity.toString());
+        return compoundNBT;
+    }
+
+    @Override
+    public void deserializeNBT(CompoundNBT nbt) {
+        registryName = nbt.getString("tag");
+        tagRarity = EnumTagRarity.getByString(nbt.getString("rarity"));
+    }
 }

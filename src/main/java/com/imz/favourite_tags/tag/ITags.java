@@ -1,12 +1,15 @@
 package com.imz.favourite_tags.tag;
 
 
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.common.util.INBTSerializable;
+
 import java.util.ArrayList;
 
-public interface ITags {
+public interface ITags extends INBTSerializable<CompoundNBT> {
     //basic tags behaviour
 
-    EnumTagGroup getTagsGroup();
+    EnumTagGroup getTagsGroup(); //group just effects on player,not on items.
 
     ArrayList<ITag> getAllTags();
     ITag getTag(String tagRegistryName);

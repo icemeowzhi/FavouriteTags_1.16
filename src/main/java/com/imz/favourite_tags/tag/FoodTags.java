@@ -1,6 +1,7 @@
 package com.imz.favourite_tags.tag;
 
 
+import net.minecraft.nbt.CompoundNBT;
 import org.lwjgl.system.CallbackI;
 
 import java.util.ArrayList;
@@ -86,6 +87,17 @@ public class FoodTags implements ITags{
     @Override
     public boolean delTag(ITag tag) {
         return this.tags.remove(tag);
+    }
+
+    //TODO
+    @Override
+    public CompoundNBT serializeNBT() {
+        return null;
+    }
+
+    @Override
+    public void deserializeNBT(CompoundNBT nbt) {
+
     }
 
 

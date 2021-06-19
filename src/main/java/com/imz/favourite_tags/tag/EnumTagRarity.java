@@ -1,9 +1,15 @@
 package com.imz.favourite_tags.tag;
 
 import com.imz.favourite_tags.Utils.Constants;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.INBTType;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
-public enum EnumTagRarity {
+import java.io.DataOutput;
+import java.io.IOException;
+
+public enum EnumTagRarity{
     COMMON(new TranslationTextComponent(Constants.MODID + ".tag.rarity.common")),
     UNCOMMON(new TranslationTextComponent(Constants.MODID+ ".tag.rarity.uncommon")),
     RARE(new TranslationTextComponent(Constants.MODID+ ".tag.rarity.rare")),
@@ -12,5 +18,33 @@ public enum EnumTagRarity {
     TranslationTextComponent displayName;
     EnumTagRarity(TranslationTextComponent displayName){
         this.displayName = displayName;
+    }
+
+    @Override
+    public String toString() {
+        switch (this){
+            case EPIC:
+                return "epic";
+            case RARE:
+                return "rare";
+            case UNCOMMON:
+                return "uncommon";
+            default:
+                return "common";
+        }
+    }
+
+    public static EnumTagRarity getByString(String rarity){
+        switch (rarity){
+            case "epic":
+                return EPIC;
+            case "rare":
+                return RARE;
+            case "uncommon":
+                return UNCOMMON;
+            case "common":
+                return COMMON;
+            default:return null;
+        }
     }
 }
