@@ -10,28 +10,26 @@ public class FoodTag implements ITag{
 
     String registryName;
     String displayName;
-    EnumTagLevel tagLevel;
-    ArrayList<Item> range = new ArrayList<>();
+    EnumTagRarity tagRarity;
 
     @Override
     public String toString() {
         return "FoodTag{" +
                 "displayName='" + displayName + '\'' +
+                ",rarity='" + tagRarity + '\'' +
                 '}';
     }
 
-    public FoodTag(String registryName , String displayName , EnumTagLevel tagLevel , ArrayList<Item> range) {
+    public FoodTag(String registryName , String displayName , EnumTagRarity tagRarity) {
         this.registryName = registryName;
         this.displayName = displayName;
-        this.tagLevel = tagLevel;
-        this.range = range;
+        this.tagRarity = tagRarity;
     }
 
-    public FoodTag(String registryName , String displayName , EnumTagLevel tagLevel , Item range) {
+    public FoodTag(String registryName , String displayName) {
         this.registryName = registryName;
         this.displayName = displayName;
-        this.tagLevel = tagLevel;
-        this.range.add(range);
+        this.tagRarity = EnumTagRarity.COMMON;
     }
 
     @Override
@@ -55,13 +53,13 @@ public class FoodTag implements ITag{
     }
 
     @Override
-    public EnumTagLevel getTagLevel() {
-        return tagLevel;
+    public EnumTagRarity getTagRarity() {
+        return tagRarity;
     }
 
     @Override
-    public void setTagLevel(EnumTagLevel tagLevel) {
-        this.tagLevel = tagLevel;
+    public void setTagRarity(EnumTagRarity tagRarity) {
+        this.tagRarity = tagRarity;
     }
 
 

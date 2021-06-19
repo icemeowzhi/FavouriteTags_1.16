@@ -1,6 +1,5 @@
 package com.imz.favourite_tags.tag;
 
-import org.lwjgl.system.CallbackI;
 
 public interface ITag {
     //basic tag behaviour
@@ -10,7 +9,7 @@ public interface ITag {
     String getDisplayName();
     void setDisplayName(String displayName);
 
-    EnumTagLevel getTagLevel();
-    void setTagLevel(EnumTagLevel tagLevel);
+    EnumTagRarity getTagRarity();
+    void setTagRarity(EnumTagRarity tagLevel);
 
 }
