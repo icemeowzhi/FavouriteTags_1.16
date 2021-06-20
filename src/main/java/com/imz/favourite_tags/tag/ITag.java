@@ -2,6 +2,7 @@ package com.imz.favourite_tags.tag;
 
 
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public interface ITag extends INBTSerializable<CompoundNBT> {
@@ -9,8 +10,7 @@ public interface ITag extends INBTSerializable<CompoundNBT> {
     String getRegistryName();
     void setRegistryName(String registryName);
 
-    String getDisplayName();
-    void setDisplayName(String displayName);
+    TranslationTextComponent getDisplayName();
 
     EnumTagRarity getTagRarity();
     void setTagRarity(EnumTagRarity tagRarity);

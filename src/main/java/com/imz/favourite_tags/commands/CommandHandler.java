@@ -13,13 +13,19 @@ public class CommandHandler{
     @SubscribeEvent
     public static void onServerStaring(RegisterCommandsEvent event) {
         CommandDispatcher<CommandSource> dispatcher = event.getDispatcher();
-        LiteralCommandNode<CommandSource> cmd = dispatcher.register(
+        LiteralCommandNode<CommandSource> showtag = dispatcher.register(
                 Commands.literal("showtag").then(
                         Commands.literal("player")
                                 .requires((commandSource) -> commandSource.hasPermissionLevel(0))
                                 .executes(TestCommand.instance)
                 )
         );
-        dispatcher.register(Commands.literal("sp").redirect(cmd));
+        dispatcher.register(Commands.literal("show").redirect(showtag));
+
+        LiteralCommandNode<CommandSource> refresh = dispatcher.register(
+                Commands.literal("refreshtag").requires((commandSource) -> commandSource.hasPermissionLevel(0))
+                        .executes(Refresh.instance)
+        );
+
     }
 }

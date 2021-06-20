@@ -1,28 +1,34 @@
 package com.imz.favourite_tags.tag;
 
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public class FoodTag implements ITag{
 
     //Define food tags
 
     String registryName;
-    String displayName;
     EnumTagRarity tagRarity;
     EnumTagGroup group;
 
     @Override
     public String toString() {
         return "FoodTag{" +
-                "displayName='" + displayName + '\'' +
+                "name='" + registryName + '\'' +
                 ",rarity='" + tagRarity + '\'' +
                 '}';
     }
 
-    public FoodTag(String registryName , String displayName,EnumTagGroup group) {
+    public FoodTag(String registryName, EnumTagGroup group) {
         this.registryName = registryName;
-        this.displayName = displayName;
         this.group = group;
+        this.tagRarity = EnumTagRarity.COMMON;
+    }
+
+    //create a default tag
+    public FoodTag(){
+        this.registryName = "registryName";
+        this.group = EnumTagGroup.NONE;
         this.tagRarity = EnumTagRarity.COMMON;
     }
 
@@ -37,13 +43,8 @@ public class FoodTag implements ITag{
     }
 
     @Override
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    @Override
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    public TranslationTextComponent getDisplayName() {
+        return TagInitializer.getDisplayNames().get(registryName);
     }
 
     @Override

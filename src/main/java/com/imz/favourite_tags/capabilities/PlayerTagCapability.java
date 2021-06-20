@@ -21,6 +21,10 @@ public class PlayerTagCapability implements IPlayerTagCapability{
         this.allTags = allTags;
     }
 
+    public PlayerTagCapability(){
+        this.allTags = new ArrayList<>();
+    }
+
     @Override
     public ArrayList<ITags> getAllTags() {
         return allTags;
@@ -39,7 +43,7 @@ public class PlayerTagCapability implements IPlayerTagCapability{
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-        for (int i = 0; i< ((ListNBT) Objects.requireNonNull(nbt.get("all_tags"))).size() ; i++){
+        for (int i = 0; i< allTags.size() ; i++){ //((ListNBT) Objects.requireNonNull(nbt.get("all_tags"))).size()
             allTags.get(i).deserializeNBT((CompoundNBT) ((ListNBT) Objects.requireNonNull(nbt.get("all_tags"))).get(i));
         }
     }

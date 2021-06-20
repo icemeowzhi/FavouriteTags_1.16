@@ -4,6 +4,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
@@ -13,7 +15,7 @@ public class TagsInitializer {
         Random random = new Random();
         ArrayList<ITag> tagInGroup = new ArrayList<>();
         for(ITag tag : allTags){
-            if (tag.getGroup() == group){
+            if (tag.getGroup() == group || tag.getGroup() == EnumTagGroup.FOODS_BOTH){
                 tagInGroup.add(tag);
             }
         }
@@ -28,40 +30,41 @@ public class TagsInitializer {
 
              */
 
-            int common = random.nextInt(1);
+            int common = random.nextInt(2);
             int uncommon = random.nextInt(1);
             int rare = random.nextInt(1);
-            int epic = random.nextInt(1);
+            int epic = random.nextInt(2);
 
             for (int i=0;i<common;i++){
-                tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size()+1)).withRarity(EnumTagRarity.COMMON));
+                tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size())).withRarity(EnumTagRarity.COMMON));
             }
             for (int i=0;i<uncommon;i++){
-                tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size()+1)).withRarity(EnumTagRarity.UNCOMMON));
+                tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size())).withRarity(EnumTagRarity.UNCOMMON));
             }
             for (int i=0;i<rare;i++){
-                tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size()+1)).withRarity(EnumTagRarity.RARE));
+                tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size())).withRarity(EnumTagRarity.RARE));
             }
             for (int i=0;i<epic;i++){
-                tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size()+1)).withRarity(EnumTagRarity.EPIC));
+                tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size())).withRarity(EnumTagRarity.EPIC));
             }
             return tags;
-        }else if (group == EnumTagGroup.FOODS_DISLIKE){
+        }
+
+        if (group == EnumTagGroup.FOODS_DISLIKE){
             ITags tags = new FoodTags(EnumTagGroup.FOODS_DISLIKE);
             //int count = random.nextInt(7);
-            int count = random.nextInt(1);
+            int count = random.nextInt(2);
             for (int i=0;i<count;i++){
-                tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size()+1)).withRarity(EnumTagRarity.COMMON));
+                tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size())).withRarity(EnumTagRarity.COMMON));
             }
             return tags;
         }
         return null;
     }
 
-    public static ITags createItemTags(ItemStack itemStack){ // use EnumTagGroup.FOODS_LIKE as group,otherwise it won't effect.
-        ArrayList<ITag> tags = FoodTagInitializer.tagMap.get(itemStack.getItem());
-        if (tags == null)
-            return null;
-        return new FoodTags(EnumTagGroup.FOODS_LIKE,tags);
+    public static ITags createItemTags(ItemStack itemStack){ // use EnumTagGroup.FOOD_ITEM_TAG as group,otherwise it won't effect.
+        ArrayList<ITag> tags = new ArrayList<>(Arrays.asList(FoodTagInitializer.tagMap.get(itemStack.getItem())));
+        if (tags == null) return null;
+        return new FoodTags(EnumTagGroup.FOOD_ITEM_TAG,tags);
     }
 }

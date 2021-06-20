@@ -105,9 +105,20 @@ public class FoodTags implements ITags{
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
         group = EnumTagGroup.values()[nbt.getInt("group")];
+        ArrayList<ITag> newArr = new ArrayList<>();
         for (int i = 0; i < ((ListNBT) Objects.requireNonNull(nbt.get("tags"))).size() ; i++){
+            FoodTag foodTag = new FoodTag();
+            foodTag.deserializeNBT((CompoundNBT) ((ListNBT) Objects.requireNonNull(nbt.get("tags"))).get(i));
+            newArr.add(foodTag);
+        }
+        tags = newArr;
+
+        /*
+        for (int i = 0; i < tags.size() ; i++){ //((ListNBT) Objects.requireNonNull(nbt.get("tags"))).size()
             tags.get(i).deserializeNBT((CompoundNBT) ((ListNBT) Objects.requireNonNull(nbt.get("tags"))).get(i));
         }
+
+         */
     }
 
 
