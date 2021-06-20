@@ -1,9 +1,6 @@
 package com.imz.favourite_tags.tag;
 
-import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
-
-import java.util.ArrayList;
 
 public class FoodTag implements ITag{
 

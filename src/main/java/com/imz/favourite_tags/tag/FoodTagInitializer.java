@@ -1,11 +1,11 @@
 package com.imz.favourite_tags.tag;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class FoodTagInitializer {
-    public static HashMap<ItemStack, ArrayList<ITag>> tagMap; //use FoodTag()
+    public static HashMap<Item, ArrayList<ITag>> tagMap = new HashMap<>(); //use FoodTag()
 
 }

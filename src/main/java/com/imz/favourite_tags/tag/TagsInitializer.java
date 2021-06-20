@@ -20,10 +20,19 @@ public class TagsInitializer {
 
         if (group == EnumTagGroup.FOODS_LIKE){
             ITags tags = new FoodTags(EnumTagGroup.FOODS_LIKE);
+            /*
             int common = random.nextInt(4);
             int uncommon = random.nextInt(4);
             int rare = random.nextInt(3);
             int epic = random.nextInt(2);
+
+             */
+
+            int common = random.nextInt(1);
+            int uncommon = random.nextInt(1);
+            int rare = random.nextInt(1);
+            int epic = random.nextInt(1);
+
             for (int i=0;i<common;i++){
                 tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size()+1)).withRarity(EnumTagRarity.COMMON));
             }
@@ -39,7 +48,8 @@ public class TagsInitializer {
             return tags;
         }else if (group == EnumTagGroup.FOODS_DISLIKE){
             ITags tags = new FoodTags(EnumTagGroup.FOODS_DISLIKE);
-            int count = random.nextInt(7);
+            //int count = random.nextInt(7);
+            int count = random.nextInt(1);
             for (int i=0;i<count;i++){
                 tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size()+1)).withRarity(EnumTagRarity.COMMON));
             }
@@ -49,7 +59,7 @@ public class TagsInitializer {
     }
 
     public static ITags createItemTags(ItemStack itemStack){ // use EnumTagGroup.FOODS_LIKE as group,otherwise it won't effect.
-        ArrayList<ITag> tags = FoodTagInitializer.tagMap.get(itemStack);
+        ArrayList<ITag> tags = FoodTagInitializer.tagMap.get(itemStack.getItem());
         if (tags == null)
             return null;
         return new FoodTags(EnumTagGroup.FOODS_LIKE,tags);

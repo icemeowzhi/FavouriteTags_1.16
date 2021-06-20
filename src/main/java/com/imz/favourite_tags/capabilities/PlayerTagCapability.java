@@ -3,8 +3,10 @@ package com.imz.favourite_tags.capabilities;
 import com.imz.favourite_tags.tag.ITags;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.ListNBT;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class PlayerTagCapability implements IPlayerTagCapability{
     private ArrayList<ITags> allTags;
@@ -27,13 +29,19 @@ public class PlayerTagCapability implements IPlayerTagCapability{
     @Override
     public CompoundNBT serializeNBT() {
         CompoundNBT compoundNBT = new CompoundNBT();
-        compoundNBT.put("all_tags", (INBT) this.allTags);
+        ListNBT list = new ListNBT();
+        for (ITags tags : allTags){
+            list.add(tags.serializeNBT());
+        }
+        compoundNBT.put("all_tags", list);
         return compoundNBT;
     }
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-        this.allTags = (ArrayList<ITags>) nbt.get("all_tags");
+        for (int i = 0; i< ((ListNBT) Objects.requireNonNull(nbt.get("all_tags"))).size() ; i++){
+            allTags.get(i).deserializeNBT((CompoundNBT) ((ListNBT) Objects.requireNonNull(nbt.get("all_tags"))).get(i));
+        }
     }
 }
 
