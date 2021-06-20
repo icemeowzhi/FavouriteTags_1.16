@@ -12,6 +12,7 @@ public class FoodTag implements ITag{
     String registryName;
     String displayName;
     EnumTagRarity tagRarity;
+    EnumTagGroup group;
 
     @Override
     public String toString() {
@@ -21,15 +22,10 @@ public class FoodTag implements ITag{
                 '}';
     }
 
-    public FoodTag(String registryName , String displayName , EnumTagRarity tagRarity) {
+    public FoodTag(String registryName , String displayName,EnumTagGroup group) {
         this.registryName = registryName;
         this.displayName = displayName;
-        this.tagRarity = tagRarity;
-    }
-
-    public FoodTag(String registryName , String displayName) {
-        this.registryName = registryName;
-        this.displayName = displayName;
+        this.group = group;
         this.tagRarity = EnumTagRarity.COMMON;
     }
 
@@ -63,18 +59,33 @@ public class FoodTag implements ITag{
         this.tagRarity = tagRarity;
     }
 
+    @Override
+    public ITag withRarity(EnumTagRarity tagRarity) {
+        this.tagRarity = tagRarity;
+        return this;
+    }
+    @Override
+    public EnumTagGroup getGroup() {
+        return group;
+    }
+
+    @Override
+    public void setGroup(EnumTagGroup group) {
+        this.group = group;
+    }
+
 
     @Override
     public CompoundNBT serializeNBT() {
         CompoundNBT compoundNBT = new CompoundNBT();
         compoundNBT.putString("tag",registryName);
-        compoundNBT.putString("rarity",tagRarity.toString());
+        compoundNBT.putInt("rarity",tagRarity.ordinal());
         return compoundNBT;
     }
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
         registryName = nbt.getString("tag");
-        tagRarity = EnumTagRarity.getByString(nbt.getString("rarity"));
+        tagRarity = EnumTagRarity.values()[nbt.getInt("rarity")];
     }
 }

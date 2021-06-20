@@ -1,24 +1,57 @@
 package com.imz.favourite_tags.tag;
 
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Random;
 
 @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class TagsInitializer {
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static ITags createPlayerTags(EnumTagGroup group){ // use to create a group of player tags
+        ArrayList<ITag> allTags = TagInitializer.getAllTag();
+        Random random = new Random();
+        ArrayList<ITag> tagInGroup = new ArrayList<>();
+        for(ITag tag : allTags){
+            if (tag.getGroup() == group){
+                tagInGroup.add(tag);
+            }
+        }
 
+        if (group == EnumTagGroup.FOODS_LIKE){
+            ITags tags = new FoodTags(EnumTagGroup.FOODS_LIKE);
+            int common = random.nextInt(4);
+            int uncommon = random.nextInt(4);
+            int rare = random.nextInt(3);
+            int epic = random.nextInt(2);
+            for (int i=0;i<common;i++){
+                tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size()+1)).withRarity(EnumTagRarity.COMMON));
+            }
+            for (int i=0;i<uncommon;i++){
+                tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size()+1)).withRarity(EnumTagRarity.UNCOMMON));
+            }
+            for (int i=0;i<rare;i++){
+                tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size()+1)).withRarity(EnumTagRarity.RARE));
+            }
+            for (int i=0;i<epic;i++){
+                tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size()+1)).withRarity(EnumTagRarity.EPIC));
+            }
+            return tags;
+        }else if (group == EnumTagGroup.FOODS_DISLIKE){
+            ITags tags = new FoodTags(EnumTagGroup.FOODS_DISLIKE);
+            int count = random.nextInt(7);
+            for (int i=0;i<count;i++){
+                tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size()+1)).withRarity(EnumTagRarity.COMMON));
+            }
+            return tags;
+        }
+        return null;
+    }
 
-
-
-    @SubscribeEvent
-    public static void regTags(final FMLCommonSetupEvent event){
-        LOGGER.info("registering tags!");
-
+    public static ITags createItemTags(ItemStack itemStack){ // use EnumTagGroup.FOODS_LIKE as group,otherwise it won't effect.
+        ArrayList<ITag> tags = FoodTagInitializer.tagMap.get(itemStack);
+        if (tags == null)
+            return null;
+        return new FoodTags(EnumTagGroup.FOODS_LIKE,tags);
     }
 }

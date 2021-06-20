@@ -9,6 +9,16 @@ import java.util.ArrayList;
 public class PlayerTagCapability implements IPlayerTagCapability{
     private ArrayList<ITags> allTags;
 
+    public PlayerTagCapability(ArrayList<ITags> allTags){
+        this.allTags = allTags;
+    }
+
+    public PlayerTagCapability(ITags tags){
+        ArrayList<ITags> allTags = new ArrayList<>();
+        allTags.add(tags);
+        this.allTags = allTags;
+    }
+
     @Override
     public ArrayList<ITags> getAllTags() {
         return allTags;

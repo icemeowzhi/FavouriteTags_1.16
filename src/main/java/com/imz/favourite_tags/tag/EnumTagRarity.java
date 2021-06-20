@@ -33,18 +33,4 @@ public enum EnumTagRarity{
                 return "common";
         }
     }
-
-    public static EnumTagRarity getByString(String rarity){
-        switch (rarity){
-            case "epic":
-                return EPIC;
-            case "rare":
-                return RARE;
-            case "uncommon":
-                return UNCOMMON;
-            case "common":
-                return COMMON;
-            default:return null;
-        }
-    }
 }

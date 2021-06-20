@@ -3,7 +3,6 @@ package com.imz.favourite_tags.tag;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
-import org.lwjgl.system.CallbackI;
 
 import java.util.ArrayList;
 
@@ -98,10 +97,10 @@ public class FoodTags implements ITags{
         compoundNBT.put("tags", (INBT) tags);
         return compoundNBT;
     }
-
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
         group = EnumTagGroup.values()[nbt.getInt("group")];
+        tags = (ArrayList<ITag>) nbt.get("tags");
     }
 
 

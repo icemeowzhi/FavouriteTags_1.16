@@ -13,6 +13,10 @@ public interface ITag extends INBTSerializable<CompoundNBT> {
     void setDisplayName(String displayName);
 
     EnumTagRarity getTagRarity();
-    void setTagRarity(EnumTagRarity tagLevel);
+    void setTagRarity(EnumTagRarity tagRarity);
+    ITag withRarity(EnumTagRarity tagRarity);
+
+    EnumTagGroup getGroup();
+    void setGroup(EnumTagGroup group);
 
 }
