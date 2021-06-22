@@ -40,11 +40,11 @@ public class FoodTagCapabilityProvider implements ICapabilityProvider, INBTSeria
 
     @Override
     public CompoundNBT serializeNBT() {
-        return foodTagCapability.serializeNBT();
+        return getOrCreateCapability(itemStack).serializeNBT();
     }
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-        foodTagCapability.deserializeNBT(nbt);
+        getOrCreateCapability(itemStack).deserializeNBT(nbt);
     }
 }

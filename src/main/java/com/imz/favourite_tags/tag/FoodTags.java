@@ -12,6 +12,11 @@ public class FoodTags implements ITags{
     EnumTagGroup group ;
     ArrayList<ITag> tags;
 
+    public FoodTags(){
+        this.group = EnumTagGroup.NONE;
+        tags = new ArrayList<>();
+    }
+
     public FoodTags(EnumTagGroup group){
         this.group = group;
         tags = new ArrayList<>();
@@ -90,7 +95,6 @@ public class FoodTags implements ITags{
         return this.tags.remove(tag);
     }
 
-    //TODO
     @Override
     public CompoundNBT serializeNBT() {
         CompoundNBT compoundNBT = new CompoundNBT();

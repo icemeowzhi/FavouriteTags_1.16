@@ -2,7 +2,6 @@ package com.imz.favourite_tags.capabilities;
 
 import com.imz.favourite_tags.tag.ITags;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 
 import java.util.ArrayList;
@@ -43,9 +42,24 @@ public class PlayerTagCapability implements IPlayerTagCapability{
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
+
         for (int i = 0; i< allTags.size() ; i++){ //((ListNBT) Objects.requireNonNull(nbt.get("all_tags"))).size()
             allTags.get(i).deserializeNBT((CompoundNBT) ((ListNBT) Objects.requireNonNull(nbt.get("all_tags"))).get(i));
         }
+
+
+/*
+        ArrayList<ITags> newArr = new ArrayList<>();
+        for (int i = 0; i < ((ListNBT) Objects.requireNonNull(nbt.get("all_tags"))).size() ; i++){
+            FoodTags foodTags = new FoodTags();
+            foodTags.deserializeNBT((CompoundNBT) ((ListNBT) Objects.requireNonNull(nbt.get("all_tags"))).get(i));
+            newArr.add(foodTags);
+        }
+        allTags = newArr;
+
+ */
+
     }
+
 }
 

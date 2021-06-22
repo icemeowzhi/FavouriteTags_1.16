@@ -2,9 +2,9 @@
   "cmd.favourite_tags.show_tags": "下面为玩家tag信息： %s",
   "cmd.favourite_tags.refresh_tags": "已刷新玩家tag",
   "tag.tag_contains": "含有标签：",
-  "tag.meat.name": "肉类",
-  "tag.fruit.name": "水果",
-  "tag.vegetable.name": "蔬菜",
-  "tag.cereal.name": "谷物",
-  "tag.apple.name": "苹果"
+  "tag.meat.name": "  ·肉类",
+  "tag.fruit.name": " ·水果",
+  "tag.vegetable.name": " ·蔬菜",
+  "tag.cereal.name": "  ·谷物",
+  "tag.apple.name": " ·苹果"
 }
