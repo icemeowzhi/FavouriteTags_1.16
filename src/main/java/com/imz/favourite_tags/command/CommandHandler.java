@@ -1,4 +1,4 @@
-package com.imz.favourite_tags.commands;
+package com.imz.favourite_tags.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.LiteralCommandNode;

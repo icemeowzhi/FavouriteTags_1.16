@@ -1,10 +1,13 @@
 package com.imz.favourite_tags.capabilities;
 
 
+import com.imz.favourite_tags.Utils.Constants;
 import com.imz.favourite_tags.tag.FoodTags;
 import com.imz.favourite_tags.tag.ITag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.Color;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -35,7 +38,8 @@ public class FoodTagCapabilityRender {
                 event.getToolTip().add(new TranslationTextComponent("tag.tag_contains"));
                 for (ITag tag : foodTags.getAllTags()){
                     TranslationTextComponent tooltipLine = tag.getDisplayName();
-                    event.getToolTip().add(tooltipLine.setStyle(tooltipLine.getStyle().setColor(Color.fromInt(0x00ffe2e2)).setBold(true).setInsertion("test")));
+                    Style style = tooltipLine.getStyle().setColor(Color.fromInt(0x00ffe2e2)).setBold(true);
+                    event.getToolTip().add(Constants.TAG_PREFIX.copyRaw().appendSibling(tooltipLine).setStyle(style));
                 }
             });
         }

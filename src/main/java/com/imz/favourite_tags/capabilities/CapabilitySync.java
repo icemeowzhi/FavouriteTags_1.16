@@ -1,14 +1,25 @@
 package com.imz.favourite_tags.capabilities;
 
+import com.imz.favourite_tags.network.NetworkHandler;
+import com.imz.favourite_tags.network.PlayerTagCapPack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Mod.EventBusSubscriber
 public class CapabilitySync {
+    //死亡继承
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event) {
         if (!event.isWasDeath()) {
@@ -29,4 +40,20 @@ public class CapabilitySync {
 
     }
 
+    //每次进入世界时，同步IPlayerTagCapability到客户端。
+    @SubscribeEvent
+    public static void onPlayerJoinWorld(EntityJoinWorldEvent event){
+        if (event.getEntity() instanceof PlayerEntity){
+            LazyOptional<IPlayerTagCapability> playerTagCap = event.getEntity().getCapability(CapabilityHandler.PLAYER_TAG_CAPABILITY);
+            if (playerTagCap.isPresent()){
+                playerTagCap.ifPresent((cap)->{
+                    if (!event.getWorld().isRemote) {
+                        NetworkHandler.INSTANCE.send(
+                                PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) event.getEntity()),
+                                new PlayerTagCapPack(cap.serializeNBT()));
+                    }
+                });
+            }
+        }
+    }
 }

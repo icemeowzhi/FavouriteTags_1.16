@@ -1,10 +1,8 @@
-package com.imz.favourite_tags.commands;
+package com.imz.favourite_tags.command;
 
 import com.imz.favourite_tags.Utils.Constants;
 import com.imz.favourite_tags.capabilities.CapabilityHandler;
 import com.imz.favourite_tags.capabilities.IPlayerTagCapability;
-import com.imz.favourite_tags.capabilities.PlayerTagCapability;
-import com.imz.favourite_tags.capabilities.PlayerTagCapabilityProvider;
 import com.imz.favourite_tags.tag.ITags;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
@@ -16,16 +14,16 @@ import net.minecraftforge.common.util.LazyOptional;
 
 import java.util.ArrayList;
 
-public class Refresh implements Command<CommandSource> {
-    public static Refresh instance = new Refresh();
+public class TestCommand implements Command<CommandSource> {
+    public static TestCommand instance = new TestCommand();
 
     @Override
     public int run(CommandContext<CommandSource> context) throws CommandSyntaxException {
         if (context.getSource().getEntity() instanceof PlayerEntity) {
             LazyOptional<IPlayerTagCapability> playerTagCapability = context.getSource().getEntity().getCapability(CapabilityHandler.PLAYER_TAG_CAPABILITY);
             playerTagCapability.ifPresent((capability) -> {
-                capability.deserializeNBT(new PlayerTagCapabilityProvider((PlayerEntity) context.getSource().getEntity()).serializeNBT());
-                context.getSource().sendFeedback(new TranslationTextComponent("cmd." + Constants.MODID + ".refresh_tags"), false);
+                ArrayList<ITags> allTags = capability.getAllTags();
+                context.getSource().sendFeedback(new TranslationTextComponent("cmd." + Constants.MODID + ".show_tags", allTags), false);
             });
         }
         return 0;
