@@ -1,4 +1,4 @@
-package com.imz.favourite_tags.Utils;
+package com.imz.favourite_tags.util;
 
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;

@@ -1,20 +1,20 @@
-package com.imz.favourite_tags.capabilities;
+package com.imz.favourite_tags.capability;
 
 
-import com.imz.favourite_tags.Utils.Constants;
+import com.imz.favourite_tags.util.Constants;
 import com.imz.favourite_tags.tag.FoodTags;
 import com.imz.favourite_tags.tag.ITag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.Color;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(value = Dist.CLIENT)
 public class FoodTagCapabilityRender {
     @SubscribeEvent
     public static void renderTooltip(RenderTooltipEvent.Color event) {

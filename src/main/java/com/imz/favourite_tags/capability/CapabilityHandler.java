@@ -1,6 +1,6 @@
-package com.imz.favourite_tags.capabilities;
+package com.imz.favourite_tags.capability;
 
-import com.imz.favourite_tags.Utils.Constants;
+import com.imz.favourite_tags.util.Constants;
 import com.imz.favourite_tags.tag.FoodTagInitializer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;

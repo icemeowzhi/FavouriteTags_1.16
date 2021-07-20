@@ -1,9 +1,9 @@
 package com.imz.favourite_tags.command;
 
-import com.imz.favourite_tags.Utils.Constants;
-import com.imz.favourite_tags.capabilities.CapabilityHandler;
-import com.imz.favourite_tags.capabilities.IPlayerTagCapability;
-import com.imz.favourite_tags.capabilities.PlayerTagCapabilityProvider;
+import com.imz.favourite_tags.util.Constants;
+import com.imz.favourite_tags.capability.CapabilityHandler;
+import com.imz.favourite_tags.capability.IPlayerTagCapability;
+import com.imz.favourite_tags.capability.PlayerTagCapabilityProvider;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;

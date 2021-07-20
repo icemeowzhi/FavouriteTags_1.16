@@ -1,6 +1,6 @@
 package com.imz.favourite_tags.gui.widget;
 
-import com.imz.favourite_tags.Utils.Constants;
+import com.imz.favourite_tags.util.Constants;
 import com.imz.favourite_tags.gui.ICustomButton;
 import com.imz.favourite_tags.gui.LangDifferedResourceLocationManger;
 import com.imz.favourite_tags.tag.EnumCategory;

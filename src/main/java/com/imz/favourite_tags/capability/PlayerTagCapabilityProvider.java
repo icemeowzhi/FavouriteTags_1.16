@@ -1,4 +1,4 @@
-package com.imz.favourite_tags.capabilities;
+package com.imz.favourite_tags.capability;
 
 import com.imz.favourite_tags.tag.*;
 import net.minecraft.entity.player.PlayerEntity;

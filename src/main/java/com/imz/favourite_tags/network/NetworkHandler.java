@@ -1,6 +1,6 @@
 package com.imz.favourite_tags.network;
 
-import com.imz.favourite_tags.Utils.Constants;
+import com.imz.favourite_tags.util.Constants;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;

@@ -1,13 +1,7 @@
 package com.imz.favourite_tags.tag;
 
-import com.imz.favourite_tags.Utils.Constants;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.INBTType;
-import net.minecraft.util.text.ITextComponent;
+import com.imz.favourite_tags.util.Constants;
 import net.minecraft.util.text.TranslationTextComponent;
-
-import java.io.DataOutput;
-import java.io.IOException;
 
 public enum EnumTagRarity{
     COMMON(new TranslationTextComponent(Constants.MODID + ".tag.rarity.common")),

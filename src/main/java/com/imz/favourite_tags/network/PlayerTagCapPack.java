@@ -1,6 +1,6 @@
 package com.imz.favourite_tags.network;
 
-import com.imz.favourite_tags.capabilities.CapabilityHandler;
+import com.imz.favourite_tags.capability.CapabilityHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;

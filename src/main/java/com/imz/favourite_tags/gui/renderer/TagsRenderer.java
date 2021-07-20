@@ -1,6 +1,6 @@
 package com.imz.favourite_tags.gui.renderer;
 
-import com.imz.favourite_tags.Utils.Constants;
+import com.imz.favourite_tags.util.Constants;
 import com.imz.favourite_tags.tag.EnumTagGroup;
 import com.imz.favourite_tags.tag.EnumTagRarity;
 import com.imz.favourite_tags.tag.ITag;
