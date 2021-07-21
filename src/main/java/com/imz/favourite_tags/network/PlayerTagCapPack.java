@@ -25,6 +25,7 @@ public class PlayerTagCapPack {
 
     public void handler(Supplier<NetworkEvent.Context> ctx){
         ctx.get().enqueueWork(()->{
+            assert Minecraft.getInstance().player != null;
             Minecraft.getInstance().player.getCapability(CapabilityHandler.PLAYER_TAG_CAPABILITY).ifPresent((cap)->cap.deserializeNBT(nbtSource));
         });
         ctx.get().setPacketHandled(true);

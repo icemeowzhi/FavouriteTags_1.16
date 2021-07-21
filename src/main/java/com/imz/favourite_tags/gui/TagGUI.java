@@ -1,13 +1,15 @@
 package com.imz.favourite_tags.gui;
 
+import com.imz.favourite_tags.gui.widget.IWidget;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.text.ITextComponent;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
-public class TagGUI extends Screen implements ICustomButton{
+public class TagGUI extends Screen implements ICustomButton,IWidgetManager{
 
 
     protected TagGUI(ITextComponent p_i51108_1_) {
@@ -28,6 +30,16 @@ public class TagGUI extends Screen implements ICustomButton{
     @Override
     public void addButton(Button button) {
         super.addButton(button);
+    }
+
+    @Override
+    public List<IWidget> getWidgets() {
+        return null;
+    }
+
+    @Override
+    public void initAll(MatrixStack matrixStack) {
+
     }
 }
 

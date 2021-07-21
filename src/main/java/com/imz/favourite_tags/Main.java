@@ -21,6 +21,7 @@ public class Main
         MinecraftForge.EVENT_BUS.register(this);
     }
 
+    /*
     //管理一些组件的注册
     @SubscribeEvent
     public void setup(final FMLCommonSetupEvent event)
@@ -28,5 +29,7 @@ public class Main
         //网络组件注册
         event.enqueueWork(NetworkHandler::registerMessage);
     }
+
+     */
 
 }
