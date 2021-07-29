@@ -134,7 +134,7 @@ repositories {
         }
     }
 
-    flatDir name: 'mods', dirs: "$projectDir/run/mods"
+    //flatDir name: 'mods', dirs: "$projectDir/modsupport"
 }
 
 dependencies {
@@ -161,23 +161,29 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
-    compileOnly fg.deobf("curse.maven:patchouli-306770:3086492")
+/*
+    //compileOnly fg.deobf("curse.maven:patchouli-306770:3086492")
     runtimeOnly fg.deobf("curse.maven:patchouli-306770:3086492")
 
-    compileOnly fg.deobf("com.sihenzhang:crockpot:1.16.3-1.5.2:release")
+    //compileOnly fg.deobf("com.sihenzhang:crockpot:1.16.3-1.5.2:release")
     runtimeOnly fg.deobf("com.sihenzhang:crockpot:1.16.3-1.5.2:release")
 
-    compileOnly fg.deobf("gloridifice:watersource:1.1.26-beta-1.16.5")
+    //compileOnly fg.deobf("gloridifice:watersource:1.1.26-beta-1.16.5")
     runtimeOnly fg.deobf("gloridifice:watersource:1.1.26-beta-1.16.5")
 
-    compileOnly fg.deobf("kogasastudio:ashihara:indev-01")
+    //compileOnly fg.deobf("kogasastudio:ashihara:indev-01")
     runtimeOnly fg.deobf("kogasastudio:ashihara:indev-01")
 
-    compileOnly fg.deobf("org.mineplugin.locusazzurro:locusazzurro_icaruswings:1.16.5-0.1.0")
+    //compileOnly fg.deobf("org.mineplugin.locusazzurro:locusazzurro_icaruswings:1.16.5-0.1.0")
     runtimeOnly fg.deobf("org.mineplugin.locusazzurro:locusazzurro_icaruswings:1.16.5-0.1.0")
 
-    compileOnly fg.deobf("com.nmmoc7:the_elixir:1.1")
+    //compileOnly fg.deobf("com.nmmoc7:the_elixir:1.1")
     runtimeOnly fg.deobf("com.nmmoc7:the_elixir:1.1")
+
+ */
+
+
+
 
 
 }

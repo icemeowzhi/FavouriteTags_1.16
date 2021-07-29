@@ -46,20 +46,20 @@ public class TagsInitializer {
 
             for (int i=0;i<common;i++){
                 tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size())).withRarity(EnumTagRarity.COMMON));
-                System.out.println(tagInGroup.size());
+                //System.out.println(tagInGroup.size());
                 //TODO:修复进地狱的问题
             }
             for (int i=0;i<uncommon;i++){
                 tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size())).withRarity(EnumTagRarity.UNCOMMON));
-                System.out.println(tagInGroup.size());
+                //System.out.println(tagInGroup.size());
             }
             for (int i=0;i<rare;i++){
                 tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size())).withRarity(EnumTagRarity.RARE));
-                System.out.println(tagInGroup.size());
+                //System.out.println(tagInGroup.size());
             }
             for (int i=0;i<epic;i++){
                 tags.addTag(tagInGroup.remove(random.nextInt(tagInGroup.size())).withRarity(EnumTagRarity.EPIC));
-                System.out.println(tagInGroup.size());
+                //System.out.println(tagInGroup.size());
             }
             return tags;
         }
@@ -78,7 +78,6 @@ public class TagsInitializer {
 
     public static ITags createItemTags(ItemStack itemStack){ // use EnumTagGroup.FOOD_ITEM_TAG as group,otherwise it won't effect.
         ArrayList<ITag> tags = new ArrayList<>(Arrays.asList(FoodTagInitializer.tagMap.get(itemStack.getItem())));
-        if (tags == null) return null;
         return new FoodTags(EnumTagGroup.FOOD_ITEM_TAG,tags);
     }
 }
