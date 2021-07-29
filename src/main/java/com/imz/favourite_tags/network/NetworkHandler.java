@@ -26,5 +26,20 @@ public class NetworkHandler {
                 .decoder(PlayerTagCapPack::new)
                 .consumer(PlayerTagCapPack::handler)
                 .add();
+        INSTANCE.messageBuilder(FoodStatSyncPack.class, nextID())
+                .encoder(FoodStatSyncPack::toBytes)
+                .decoder(FoodStatSyncPack::new)
+                .consumer(FoodStatSyncPack::handler)
+                .add();
+        INSTANCE.messageBuilder(FeelingHudDisplayPack.class, nextID())
+                .encoder(FeelingHudDisplayPack::toBytes)
+                .decoder(FeelingHudDisplayPack::new)
+                .consumer(FeelingHudDisplayPack::handler)
+                .add();
+        INSTANCE.messageBuilder(SoundPack.class, nextID())
+                .encoder(SoundPack::toBytes)
+                .decoder(SoundPack::new)
+                .consumer(SoundPack::handler)
+                .add();
     }
 }

@@ -8,7 +8,7 @@ import net.minecraft.util.math.vector.Vector2f;
 在render()中写关于某种数据渲染的代码。
  */
 public interface IRenderable {
-    void render(MatrixStack matrixStack);
+    void render(MatrixStack matrixStack,int startPosX,int startPosY);
 
     //得到从渲染点到下一个渲染点的大小，便于多次渲染。
     int getRenderEnd();

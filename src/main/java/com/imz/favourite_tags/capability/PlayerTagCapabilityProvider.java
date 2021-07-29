@@ -31,8 +31,8 @@ public class PlayerTagCapabilityProvider implements ICapabilityProvider, INBTSer
     @Nonnull
     PlayerTagCapability getOrCreateCapability(){
         if (playerTagCapability == null){
-            ITags like = TagsInitializer.createPlayerTags(EnumTagGroup.FOODS_LIKE);
-            ITags dislike = TagsInitializer.createPlayerTags(EnumTagGroup.FOODS_DISLIKE);
+            ITags like = TagsInitializer.createPlayerTags(EnumTagGroup.FOODS_LIKE,null);
+            ITags dislike = TagsInitializer.createPlayerTags(EnumTagGroup.FOODS_DISLIKE, like.getAllTags());
             ArrayList<ITags> allTags =new ArrayList<>();
             allTags.add(like);
             allTags.add(dislike);

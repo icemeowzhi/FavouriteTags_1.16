@@ -14,6 +14,11 @@ public class PlayerTagCapability implements IPlayerTagCapability{
         this.allTags = allTags;
     }
 
+    public PlayerTagCapability(CompoundNBT nbt){
+        this();
+        deserializeNBT(nbt);
+    }
+
     public PlayerTagCapability(ITags tags){
         ArrayList<ITags> allTags = new ArrayList<>();
         allTags.add(tags);

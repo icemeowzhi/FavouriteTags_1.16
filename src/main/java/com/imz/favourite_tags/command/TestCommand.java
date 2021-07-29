@@ -1,9 +1,9 @@
 package com.imz.favourite_tags.command;
 
-import com.imz.favourite_tags.util.Constants;
 import com.imz.favourite_tags.capability.CapabilityHandler;
 import com.imz.favourite_tags.capability.IPlayerTagCapability;
 import com.imz.favourite_tags.tag.ITags;
+import com.imz.favourite_tags.util.Constants;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -13,6 +13,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.util.LazyOptional;
 
 import java.util.ArrayList;
+
 
 public class TestCommand implements Command<CommandSource> {
     public static TestCommand instance = new TestCommand();
@@ -24,6 +25,7 @@ public class TestCommand implements Command<CommandSource> {
             playerTagCapability.ifPresent((capability) -> {
                 ArrayList<ITags> allTags = capability.getAllTags();
                 context.getSource().sendFeedback(new TranslationTextComponent("cmd." + Constants.MODID + ".show_tags", allTags), false);
+                //FeelingHud.INSTANCE.displayMessage(Lists.newArrayList(new StringTextComponent("test")),100,255,255,255,255,50);
             });
         }
         return 0;

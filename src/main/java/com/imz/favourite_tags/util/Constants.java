@@ -1,13 +1,12 @@
 package com.imz.favourite_tags.util;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class Constants {
     public static final String MODID = "favourite_tags";
     public static final ITextComponent TAG_PREFIX = new TranslationTextComponent("tag.prefix");
-    public static final int GUI_BG_WIDTH = 256;
-    public static final int GUI_BG_HEIGHT = 256;
     public static final int CATEGORY_SELECTOR_X = 19;
     public static final int CATEGORY_SELECTOR_Y = 42;
     public static final int CATEGORY_SELECTOR_WIDTH = 59;
@@ -40,4 +39,15 @@ public class Constants {
     public static final int CATEGORY_INTEREST_U = 0;
     public static final int CATEGORY_INTEREST_V1 = 0;
     public static final int CATEGORY_INTEREST_V2 = 20;
+    public static final int FIRST_RENDER_X = 81;
+    public static final int FIRST_RENDER_Y = 41;
+    public static final int OPEN_GUI_BTN_U = 0;
+    public static final int OPEN_GUI_BTN_V1 = 0;
+    public static final int OPEN_GUI_BTN_V2 = 19;
+    public static final int OPEN_GUI_BTN_WIDTH = 33;
+    public static final int OPEN_GUI_BTN_HEIGHT = 18;
+
+    public static final ResourceLocation BG = new ResourceLocation(MODID,"textures/gui/bg.png");
+    public static final ResourceLocation UI = new ResourceLocation(MODID,"textures/gui/ui.png");
+    public static final ResourceLocation INV_BTN = new ResourceLocation(MODID,"textures/gui/inv_button.png");
 }

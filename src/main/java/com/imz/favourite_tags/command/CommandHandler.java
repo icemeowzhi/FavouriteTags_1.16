@@ -4,6 +4,8 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -27,5 +29,9 @@ public class CommandHandler{
                         .executes(Refresh.instance)
         );
 
+        LiteralCommandNode<CommandSource> taggui = dispatcher.register(
+                Commands.literal("taggui").requires((commandSource) -> commandSource.hasPermissionLevel(0))
+                        .executes(TagGUI.instance)
+        );
     }
 }

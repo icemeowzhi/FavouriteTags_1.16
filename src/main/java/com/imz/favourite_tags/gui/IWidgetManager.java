@@ -15,9 +15,9 @@ public interface IWidgetManager {
 
     List<IWidget> getWidgets();
 
-    default void initAll(MatrixStack matrixStack){
+    default void initAll(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks,int startPosX,int startPosY){
         for (IWidget widget:getWidgets()){
-            widget.init(matrixStack);
+            widget.init(matrixStack,mouseX,mouseY,partialTicks,startPosX,startPosY);
         }
     }
 

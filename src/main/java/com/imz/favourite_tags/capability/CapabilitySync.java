@@ -38,16 +38,20 @@ public class CapabilitySync {
     @SubscribeEvent
     public static void onPlayerJoinWorld(EntityJoinWorldEvent event){
         if (event.getEntity() instanceof PlayerEntity){
-            LazyOptional<IPlayerTagCapability> playerTagCap = event.getEntity().getCapability(CapabilityHandler.PLAYER_TAG_CAPABILITY);
-            if (playerTagCap.isPresent()){
-                playerTagCap.ifPresent((cap)->{
-                    if (!event.getWorld().isRemote) {
-                        NetworkHandler.INSTANCE.send(
-                                PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) event.getEntity()),
-                                new PlayerTagCapPack(cap.serializeNBT()));
-                    }
-                });
+            if (!event.getWorld().isRemote) {
+                LazyOptional<IPlayerTagCapability> playerTagCap = event.getEntity().getCapability(CapabilityHandler.PLAYER_TAG_CAPABILITY);
+                if (playerTagCap.isPresent()) {
+                    playerTagCap.ifPresent((cap) -> {
+                        if (!event.getWorld().isRemote) {
+                            NetworkHandler.INSTANCE.send(
+                                    PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) event.getEntity()),
+                                    new PlayerTagCapPack(cap.serializeNBT()));
+                        }
+                    });
+                }
             }
         }
     }
+
 }
+

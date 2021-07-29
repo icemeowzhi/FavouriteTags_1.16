@@ -8,5 +8,5 @@ Widget 的功能：
     通过在init()里添加代码来在一个gui中添加该组件
  */
 public interface IWidget {
-    void init(MatrixStack matrixStack);
+    void init(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks,int startPosX,int startPosY);
 }
