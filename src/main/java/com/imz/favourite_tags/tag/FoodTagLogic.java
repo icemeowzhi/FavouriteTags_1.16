@@ -48,6 +48,8 @@ public class FoodTagLogic {
         }
 
         if (event.getEntity() instanceof PlayerEntity){
+            foodTags = null;
+            playerTags = null;
             ItemStack itemStack = event.getItem();
             PlayerEntity player = (PlayerEntity) event.getEntity();
             itemStack.getCapability(CapabilityHandler.FOOD_TAG_CAPABILITY).ifPresent((cap)-> foodTags = cap.getTags());
