@@ -34,7 +34,7 @@ public class FoodTagLogic {
     private static ArrayList<ITags> playerTags;
     private static boolean isCoolDown = false;
     public static int nowCoolDown = 0;
-    public static int coolDown = 300;
+    public static int coolDown = 6000;
     public static boolean badEffect = false;
 
 
@@ -156,7 +156,7 @@ public class FoodTagLogic {
                                             switch (random.nextInt(4)){
                                                 case 1:
                                                     effectInstance = new EffectInstance(Effects.SATURATION,
-                                                            2400,0,false,true,true);
+                                                            1000,0,false,true,true);
 
                                                     break; case 2: effectInstance = new EffectInstance(Effects.LUCK,
                                                         2400,1,false,true,true);
