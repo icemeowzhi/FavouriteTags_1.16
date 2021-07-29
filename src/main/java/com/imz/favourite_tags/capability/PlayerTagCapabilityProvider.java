@@ -31,8 +31,20 @@ public class PlayerTagCapabilityProvider implements ICapabilityProvider, INBTSer
     @Nonnull
     PlayerTagCapability getOrCreateCapability(){
         if (playerTagCapability == null){
-            ITags like = TagsInitializer.createPlayerTags(EnumTagGroup.FOODS_LIKE,null);
-            ITags dislike = TagsInitializer.createPlayerTags(EnumTagGroup.FOODS_DISLIKE, like.getAllTags());
+            ArrayList<ITag> ignoredTag = new ArrayList<>();
+            for (ITag tag:TagInitializer.getAllTag()) {
+                boolean hadTag = false;
+                for (ITag[] tags : FoodTagInitializer.tagMap.values()){
+                    for (ITag foodTag : tags){
+                        if (tag.getRegistryName().equals(foodTag.getRegistryName())){ hadTag = true ;}
+                    }
+                }
+                if (!hadTag){ignoredTag.add(tag);}
+            }
+
+            ITags like = TagsInitializer.createPlayerTags(EnumTagGroup.FOODS_LIKE,ignoredTag);
+            ignoredTag.addAll(like.getAllTags());
+            ITags dislike = TagsInitializer.createPlayerTags(EnumTagGroup.FOODS_DISLIKE,ignoredTag);
             ArrayList<ITags> allTags =new ArrayList<>();
             allTags.add(like);
             allTags.add(dislike);

@@ -28,7 +28,7 @@ public class TagInitializer {
     public static FoodTag fruit = new FoodTag("fruit",EnumTagGroup.FOODS_BOTH);
     public static FoodTag vegetable = new FoodTag("vegetable",EnumTagGroup.FOODS_BOTH);
     public static FoodTag cereal = new FoodTag("cereal",EnumTagGroup.FOODS_BOTH);
-    public static FoodTag roasted = new FoodTag("roasted",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag fried = new FoodTag("fried",EnumTagGroup.FOODS_BOTH);
     public static FoodTag golden = new FoodTag("golden",EnumTagGroup.FOODS_LIKE);
     public static FoodTag raw = new FoodTag("raw",EnumTagGroup.FOODS_DISLIKE);
     public static FoodTag soup = new FoodTag("soup",EnumTagGroup.FOODS_BOTH);
@@ -37,6 +37,13 @@ public class TagInitializer {
     public static FoodTag rice = new FoodTag("rice",EnumTagGroup.FOODS_BOTH);
     public static FoodTag processed_raw = new FoodTag("processed_raw",EnumTagGroup.FOODS_BOTH);
     public static FoodTag berry = new FoodTag("berry",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag smoked = new FoodTag("smoked",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag salad = new FoodTag("salad",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag hot_drink = new FoodTag("hot_drink",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag monster = new FoodTag("monster",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag baked = new FoodTag("baked",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag sauce = new FoodTag("sauce",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag wine = new FoodTag("wine",EnumTagGroup.FOODS_BOTH);
 
     public static FoodTag apple = new FoodTag("apple",EnumTagGroup.FOODS_BOTH);
     public static FoodTag beef = new FoodTag("beef",EnumTagGroup.FOODS_BOTH);
@@ -47,7 +54,7 @@ public class TagInitializer {
     public static FoodTag rabbit = new FoodTag("rabbit",EnumTagGroup.FOODS_BOTH);
     public static FoodTag watermelon = new FoodTag("watermelon",EnumTagGroup.FOODS_BOTH);
     public static FoodTag carrot = new FoodTag("carrot",EnumTagGroup.FOODS_BOTH);
-    public static FoodTag cake = new FoodTag("cake",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag cake = new FoodTag("cake",EnumTagGroup.FOODS_BOTH); //not done yet
     public static FoodTag potato = new FoodTag("potato",EnumTagGroup.FOODS_BOTH);
     public static FoodTag beet = new FoodTag("beet",EnumTagGroup.FOODS_BOTH);
     public static FoodTag chorus = new FoodTag("chorus",EnumTagGroup.FOODS_BOTH);
@@ -55,10 +62,28 @@ public class TagInitializer {
     public static FoodTag mushroom = new FoodTag("mushroom",EnumTagGroup.FOODS_BOTH);
     public static FoodTag kelp = new FoodTag("kelp",EnumTagGroup.FOODS_BOTH);
     public static FoodTag pumpkin = new FoodTag("pumpkin",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag egg = new FoodTag("egg",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag honey = new FoodTag("honey",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag frog = new FoodTag("frog",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag milk = new FoodTag("milk",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag asparagus = new FoodTag("asparagus",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag coffee = new FoodTag("coffee",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag bacon = new FoodTag("bacon",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag onion = new FoodTag("onion",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag tea = new FoodTag("tea",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag tomato = new FoodTag("tomato",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag chili = new FoodTag("chili",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag eggplant = new FoodTag("eggplant",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag coconut = new FoodTag("coconut",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag sakura = new FoodTag("sakura",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag secret = new FoodTag("secret",EnumTagGroup.FOODS_LIKE);
 
     public static FoodTag sweet = new FoodTag("sweet",EnumTagGroup.FOODS_BOTH);
     public static FoodTag salty = new FoodTag("salty",EnumTagGroup.FOODS_BOTH);
     public static FoodTag sweet_and_salty = new FoodTag("sweet_and_salty",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag spicy = new FoodTag("spicy",EnumTagGroup.FOODS_BOTH);
+
+    public static FoodTag cold = new FoodTag("cold",EnumTagGroup.FOODS_BOTH);
 
 
     @SubscribeEvent
@@ -68,7 +93,7 @@ public class TagInitializer {
         register(fruit);
         register(vegetable);
         register(cereal);
-        register(roasted);
+        register(fried);
         register(golden);
         register(raw);
         register(soup);
@@ -77,6 +102,13 @@ public class TagInitializer {
         register(rice);
         register(processed_raw);
         register(berry);
+        register(smoked);
+        register(salad);
+        register(hot_drink);
+        register(monster);
+        register(baked);
+        register(sauce);
+        register(wine);
 
         register(apple);
         register(beef);
@@ -95,11 +127,28 @@ public class TagInitializer {
         register(mushroom);
         register(kelp);
         register(pumpkin);
-
+        register(egg);
+        register(honey);
+        register(frog);
+        register(milk);
+        register(asparagus);
+        register(coffee);
+        register(bacon);
+        register(onion);
+        register(tea);
+        register(tomato);
+        register(chili);
+        register(eggplant);
+        register(coconut);
+        register(sakura);
+        register(secret);
 
         register(sweet);
-        register(salty);
-        register(sweet_and_salty);
+        register(salty);//no usage
+        register(sweet_and_salty);//no usage
+        register(spicy);
+
+        register(cold);
     }
 
     private static void register(ITag tag, TranslationTextComponent displayName){
