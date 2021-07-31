@@ -89,17 +89,6 @@ public class CapabilityHandler {
                 if (itemStack.getItem().equals(item)){
                     FoodTagCapabilityProvider provider = new FoodTagCapabilityProvider(itemStack);
                     event.addCapability(new ResourceLocation(Constants.MODID,"food_tags"),provider);
-                    /*
-                    FoodTagCapability foodTagCapability = (FoodTagCapability) provider.getOrCreateCapability(itemStack);
-                    List<ITextComponent> tooltips = new ArrayList<>();
-                    tooltips.add(new TranslationTextComponent("tag.tag_contains"));
-                    for (ITag tag : foodTagCapability.getTags().getAllTags()){
-                        tooltips.add(tag.getDisplayName());
-                    }
-                    item.addInformation(itemStack,null,tooltips, ITooltipFlag.TooltipFlags.ADVANCED); //TODO
-
-                     */
-
                 }
             }
         }

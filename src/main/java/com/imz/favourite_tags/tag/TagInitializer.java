@@ -44,6 +44,7 @@ public class TagInitializer {
     public static FoodTag baked = new FoodTag("baked",EnumTagGroup.FOODS_BOTH);
     public static FoodTag sauce = new FoodTag("sauce",EnumTagGroup.FOODS_BOTH);
     public static FoodTag wine = new FoodTag("wine",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag dried = new FoodTag("dried",EnumTagGroup.FOODS_BOTH);
 
     public static FoodTag apple = new FoodTag("apple",EnumTagGroup.FOODS_BOTH);
     public static FoodTag beef = new FoodTag("beef",EnumTagGroup.FOODS_BOTH);
@@ -77,6 +78,9 @@ public class TagInitializer {
     public static FoodTag coconut = new FoodTag("coconut",EnumTagGroup.FOODS_BOTH);
     public static FoodTag sakura = new FoodTag("sakura",EnumTagGroup.FOODS_BOTH);
     public static FoodTag secret = new FoodTag("secret",EnumTagGroup.FOODS_LIKE);
+    public static FoodTag grape = new FoodTag("grape",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag cucumber = new FoodTag("cucumber",EnumTagGroup.FOODS_BOTH);
+    public static FoodTag paimon = new FoodTag("paimon",EnumTagGroup.FOODS_LIKE);
 
     public static FoodTag sweet = new FoodTag("sweet",EnumTagGroup.FOODS_BOTH);
     public static FoodTag salty = new FoodTag("salty",EnumTagGroup.FOODS_BOTH);
@@ -109,6 +113,7 @@ public class TagInitializer {
         register(baked);
         register(sauce);
         register(wine);
+        register(dried);
 
         register(apple);
         register(beef);
@@ -142,6 +147,9 @@ public class TagInitializer {
         register(coconut);
         register(sakura);
         register(secret);
+        register(grape);
+        register(cucumber);
+        register(paimon);
 
         register(sweet);
         register(salty);//no usage

@@ -24,7 +24,7 @@
   "tag.baked.name": "烘烤",
   "tag.sauce.name": "酱汁",
   "tag.wine.name": "酒",
-
+  "tag.dried.name": "风干",
 
   "tag.apple.name": "苹果",
   "tag.beef.name": "牛肉",
@@ -58,6 +58,9 @@
   "tag.coconut.name": "椰子",
   "tag.sakura.name": "樱花",
   "tag.secret.name": "？？？",
+  "tag.grape.name": "葡萄",
+  "tag.cucumber.name": "黄瓜",
+  "tag.paimon.name": "派蒙",
 
   "tag.sweet.name": "甜味",
   "tag.salty.name": "咸味",
