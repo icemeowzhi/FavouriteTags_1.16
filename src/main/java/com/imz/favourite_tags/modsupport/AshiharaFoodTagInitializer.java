@@ -17,19 +17,9 @@ public class AshiharaFoodTagInitializer {
     @SubscribeEvent
     public static void registerFoodTag(FMLCommonSetupEvent event) {
 
-        if (!ModList.get().isLoaded("ashihara")) {
+        if (!ModList.get().isLoaded(MODID)) {
             return;
         }
-
-        /*
-        FoodTagInitializer.register(ItemRegistryHandler.MINATO_AQUA.get(), new ITag[]{TagInitializer.secret});
-        FoodTagInitializer.register(ItemRegistryHandler.DIRT_BALL_DON.get(), new ITag[]{TagInitializer.secret,TagInitializer.rice});
-        FoodTagInitializer.register(ItemRegistryHandler.DIRT_BALL.get(), new ITag[]{TagInitializer.secret});
-        FoodTagInitializer.register(ItemRegistryHandler.SAKURA.get(), new ITag[]{TagInitializer.sakura});
-        FoodTagInitializer.register(ItemRegistryHandler.SAKURAMOCHI.get(),new ITag[]{TagInitializer.sakura,TagInitializer.rice});
-        FoodTagInitializer.register(ItemRegistryHandler.COOKED_RICE.get(),new ITag[]{TagInitializer.rice});
-
-         */
 
         FoodTagInitializer.register(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID,"aqua")), new ITag[]{TagInitializer.secret});
         FoodTagInitializer.register(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID,"dirt_ball_don")), new ITag[]{TagInitializer.secret,TagInitializer.rice});

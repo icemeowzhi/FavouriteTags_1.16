@@ -17,11 +17,11 @@ public class ElixirFoodTagInitializer {
     @SubscribeEvent
     public static void registerFoodTag(FMLCommonSetupEvent event) {
 
-        if (!ModList.get().isLoaded("the_elixir")) {
+        if (!ModList.get().isLoaded(MODID)) {
             return;
         }
 
         FoodTagInitializer.register(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID,"mango_food")),new ITag[]{TagInitializer.fruit});
-        //FoodTagInitializer.register(RegistryHandler.MANGO_FOOD,new ITag[]{TagInitializer.fruit});
+
     }
 }

@@ -16,14 +16,12 @@ public class WaterSourceFoodTagInitializer {
     @SubscribeEvent
     public static void registerFoodTag(FMLCommonSetupEvent event) {
 
-        if (!ModList.get().isLoaded("watersource")) {
+        if (!ModList.get().isLoaded(MODID)) {
             return;
         }
 
         FoodTagInitializer.register(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID,"coconut_piece")),new ITag[]{TagInitializer.fruit,TagInitializer.coconut});
         FoodTagInitializer.register(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID,"coconut_chicken")),new ITag[]{TagInitializer.chicken,TagInitializer.meat,TagInitializer.coconut});
 
-        //FoodTagInitializer.register(ItemRegistry.itemCoconutPiece,new ITag[]{TagInitializer.fruit,TagInitializer.coconut});
-        //FoodTagInitializer.register(ItemRegistry.itemCoconutChicken,new ITag[]{TagInitializer.chicken,TagInitializer.meat,TagInitializer.coconut});
     }
 }

@@ -17,7 +17,7 @@ public class IcarusFoodTagInitializer {
     @SubscribeEvent
     public static void registerFoodTag(FMLCommonSetupEvent event) {
 
-        if (!ModList.get().isLoaded("locusazzurro_icaruswings")) {
+        if (!ModList.get().isLoaded(MODID)) {
             return;
         }
 
@@ -30,14 +30,5 @@ public class IcarusFoodTagInitializer {
         FoodTagInitializer.register(ForgeRegistries.ITEMS.getValue(new ResourceLocation(MODID,"beeswax")), new ITag[]{TagInitializer.honey});
 
 
-/*
-        FoodTagInitializer.register(ItemRegistry.mead.get(), new ITag[]{TagInitializer.wine,TagInitializer.honey,TagInitializer.golden});
-        FoodTagInitializer.register(ItemRegistry.zephirInfusedMead.get(), new ITag[]{TagInitializer.wine,TagInitializer.honey,TagInitializer.golden});
-        FoodTagInitializer.register(ItemRegistry.netherInfusedMead.get(), new ITag[]{TagInitializer.wine,TagInitializer.honey,TagInitializer.golden});
-        FoodTagInitializer.register(ItemRegistry.voidInfusedMead.get(), new ITag[]{TagInitializer.wine,TagInitializer.honey,TagInitializer.golden});
-        FoodTagInitializer.register(ItemRegistry.goldenAppleInfusedMead.get(), new ITag[]{TagInitializer.wine,TagInitializer.honey,TagInitializer.golden});
-        FoodTagInitializer.register(ItemRegistry.herbsInfusedMead.get(), new ITag[]{TagInitializer.wine,TagInitializer.honey,TagInitializer.golden});
-        FoodTagInitializer.register(ItemRegistry.beeswax.get(), new ITag[]{TagInitializer.honey});
- */
     }
 }

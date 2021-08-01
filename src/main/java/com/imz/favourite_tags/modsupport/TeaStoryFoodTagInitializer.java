@@ -17,7 +17,7 @@ public class TeaStoryFoodTagInitializer {
     @SubscribeEvent
     public static void registerFoodTag(FMLCommonSetupEvent event) {
 
-        if (!ModList.get().isLoaded("teastory")) {
+        if (!ModList.get().isLoaded(MODID)) {
             return;
         }
 

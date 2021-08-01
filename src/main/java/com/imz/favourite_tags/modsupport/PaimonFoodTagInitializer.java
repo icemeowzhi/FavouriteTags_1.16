@@ -18,7 +18,7 @@ public class PaimonFoodTagInitializer {
     @SubscribeEvent
     public static void registerFoodTag(FMLCommonSetupEvent event) {
 
-        if (!ModList.get().isLoaded("paimon")) {
+        if (!ModList.get().isLoaded(MODID)) {
             return;
         }
 
