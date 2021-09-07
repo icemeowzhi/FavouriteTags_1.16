@@ -8,6 +8,11 @@ import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
+/**
+ * @author icemeowzhi
+ * @date 2021/9/5
+ * @apiNote
+ */
 public class PlayerTagCapPack {
 
     CompoundNBT nbtSource;

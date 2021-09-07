@@ -1,5 +1,6 @@
 package com.imz.favourite_tags.network;
 
+import com.imz.favourite_tags.capability.CapabilityHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
@@ -12,14 +13,13 @@ import java.util.function.Supplier;
  * @date 2021/9/5
  * @apiNote
  */
-public class FoodStatSyncPack {
-
+public class PlayerFedUpPack {
     CompoundNBT nbtSource;
 
-    public FoodStatSyncPack(PacketBuffer buffer){
+    public PlayerFedUpPack(PacketBuffer buffer){
         nbtSource = buffer.readCompoundTag();
     }
-    public FoodStatSyncPack(CompoundNBT nbt){
+    public PlayerFedUpPack(CompoundNBT nbt){
         nbtSource = nbt;
     }
 
@@ -30,7 +30,7 @@ public class FoodStatSyncPack {
     public void handler(Supplier<NetworkEvent.Context> ctx){
         ctx.get().enqueueWork(()->{
             assert Minecraft.getInstance().player != null;
-            Minecraft.getInstance().player.getFoodStats().read(nbtSource);
+            Minecraft.getInstance().player.getCapability(CapabilityHandler.PLAYER_FED_UP_CAPABILITY).ifPresent((cap)->cap.deserializeNBT(nbtSource));
         });
         ctx.get().setPacketHandled(true);
     }

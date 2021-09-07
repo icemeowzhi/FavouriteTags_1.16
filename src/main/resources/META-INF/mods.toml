@@ -13,30 +13,16 @@ license="All rights reserved"
 # A URL to refer people to when problems occur with this mod
 #issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
 # A list of mods - how many allowed here is determined by the individual mod loader
-[[mods]] #mandatory
-# The modid of the mod
+[[mods]]
 modId="favourite_tags" #mandatory
-# The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-# ${file.jarVersion} will substitute the value of the Implementation-Version as read from the mod's JAR file metadata
-# see the associated build.gradle script for how to populate this completely automatically during a build
-version="0.0.1" #mandatory
- # A display name for the mod
+version="0.0.2" #mandatory
 displayName="Favourite Tags" #mandatory
-# A URL to query for updates for this mod. See the JSON update specification https://mcforge.readthedocs.io/en/latest/gettingstarted/autoupdate/
-#updateJSONURL="https://change.me.example.invalid/updates.json" #optional
-# A URL for the "homepage" for this mod, displayed in the mod UI
-#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
-# A file name (in the root of the mod JAR) containing a logo for display
 logoFile="favourite_tag_logo.png" #optional
-# A text field displayed in the mod UI
 credits="Mojang, and the minecraft community." #optional
-# A text field displayed in the mod UI
 authors="icemeowzhi" #optional
-# The description text for the mod (multi line!) (#mandatory)
 description='''
 A minecraft mod that added various tags.
 '''
-# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.favourite_tags]] #optional
     # the modid of the dependency
     modId="forge" #mandatory
@@ -56,3 +42,16 @@ A minecraft mod that added various tags.
     versionRange="[1.16.5,1.17)"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.favourite_tags]]
+    modId="state_gui"
+    mandatory=true
+    side="BOTH"
+    versionRange="[0.0.1,)"
+
+[[mods]]
+modId="state_gui"
+version="0.0.1"
+displayName="State GUI"
+description="Add a state GUI that may support icemeowzhi's other mod."
+
