@@ -22,19 +22,15 @@ public class TagWidget extends Widget implements IBidiTooltip {
     Screen parent;
     EnumRarity rarity;
     List<IReorderingProcessor> tooltips;
+    ITextComponent renderedText;
     final ResourceLocation widgetTexture = new ResourceLocation(ModStateGUI.MODID, "textures/gui/stategui_widget.png");
 
-    public TagWidget(int x, int y, ITextComponent title, Screen parent, EnumRarity rarity, List<IReorderingProcessor> tooltips) {
+    public TagWidget(int x, int y, ITextComponent title, Screen parent, EnumRarity rarity, List<IReorderingProcessor> tooltips,ITextComponent renderedText) {
         super(x, y, 29, 11, title);
         this.parent = parent;
         this.rarity = rarity;
         this.tooltips = tooltips;
-    }
-
-    @Override
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
-
+        this.renderedText = renderedText;
     }
 
     @Override
@@ -66,9 +62,6 @@ public class TagWidget extends Widget implements IBidiTooltip {
         this.parent.getMinecraft().getTextureManager().bindTexture(widgetTexture);
         parent.blit(matrixStack,x,y,uOffset,vOffset,width,height);
 
-        if (this.isHovered()) {
-            this.renderToolTip(matrixStack, mouseX, mouseY);
-        }
     }
 
     @Override
@@ -76,5 +69,12 @@ public class TagWidget extends Widget implements IBidiTooltip {
         return Optional.of(tooltips);
     }
 
+    public void setPosition(int xIn, int yIn) {
+        this.x = xIn;
+        this.y = yIn;
+    }
 
+    public ITextComponent getRenderedText() {
+        return renderedText;
+    }
 }

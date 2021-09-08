@@ -1,22 +1,17 @@
 package com.imz.StateGUI.client.gui;
 
-import com.google.common.collect.Lists;
 import com.imz.StateGUI.ModStateGUI;
-import com.imz.StateGUI.client.gui.widget.StatusPanel;
-import com.imz.StateGUI.client.gui.widget.TagWidget;
-import com.imz.favourite_tags.foodtag.EnumRarity;
+import com.imz.StateGUI.client.gui.widget.StateButton;
+import com.imz.StateGUI.client.gui.widget.StatePanel;
+import com.imz.favourite_tags.client.renderer.gui.widget.TagPanel;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -26,22 +21,21 @@ import java.util.List;
  */
 //管理一个BtnList和其对panel的控制
 public class StateGUI extends Screen {
-
-    protected StateGUI(ITextComponent titleIn) {
-        super(titleIn);
-    }
-
     public final ResourceLocation bg = new ResourceLocation(ModStateGUI.MODID, "textures/gui/stategui_background.png");
     public final int GUI_WIDTH = 332;
     public final int GUI_HEIGHT = 249;
     public int guiLeft = (this.width - GUI_WIDTH) / 2;
     public int guiTop = (this.height - GUI_HEIGHT) / 2;
 
-    private List<Button> tabList = Lists.newArrayList();
+    private StatePanel currentPanel;
+    private List<StatePanel> allPanel;
+    private List<StateButton> allButton;
 
-    private StatusPanel panel;
-    private TagWidget testWidget;
     //TODO:new GUI
+    protected StateGUI(ITextComponent titleIn) {
+        super(titleIn);
+        //检查注册表里所有的panel并创建实例
+    }
 
     @Override
     public void init(Minecraft minecraft, int width, int height) {
@@ -50,38 +44,9 @@ public class StateGUI extends Screen {
         guiLeft = (this.width - GUI_WIDTH) / 2;
         guiTop = (this.height - GUI_HEIGHT) / 2;
 
-        panel = new StatusPanel(this.minecraft,this) {
-            @Override
-            public int getContentHeight()
-            {
-                int height = 50;
-                height += (lines.size() * font.FONT_HEIGHT);
-                if (height < this.bottom - this.top - 8)
-                    height = this.bottom - this.top - 8;
-                return height;
-            }
+        currentPanel = new TagPanel(this);
 
-            @Override
-            protected void drawPanel(MatrixStack mStack, int entryRight, int relativeY, Tessellator tess, int mouseX, int mouseY) {
-                for (IReorderingProcessor line : this.lines)
-                {
-                    if (line != null)
-                    {
-                        RenderSystem.enableBlend();
-                        StateGUI.this.font.drawTextWithShadow(mStack, line, left, relativeY, 0xFFFFFF);
-                        RenderSystem.disableAlphaTest();
-                        RenderSystem.disableBlend();
-                    }
-                    relativeY += font.FONT_HEIGHT;
-                }
-            }
-        };
-
-        this.children.add(panel);
-
-        List<IReorderingProcessor> tooltips = Lists.newArrayList(new StringTextComponent("test1").func_241878_f(),new StringTextComponent("test2").func_241878_f());
-        testWidget = new TagWidget(guiLeft,guiTop,new StringTextComponent("test"),this, EnumRarity.RARE,tooltips);
-        this.children.add(testWidget);
+        this.children.add(currentPanel);
     }
 
     @Override
@@ -90,15 +55,13 @@ public class StateGUI extends Screen {
         guiLeft = (this.width - GUI_WIDTH) / 2;
         guiTop = (this.height - GUI_HEIGHT) / 2;
         renderBackground(matrixStack);
-        if (panel!=null){
-            panel.render(matrixStack,mouseX,mouseY,partialTicks);
+        if (currentPanel !=null){
+            currentPanel.render(matrixStack,mouseX,mouseY,partialTicks);
         }
-
-        testWidget.render(matrixStack,mouseX,mouseY,partialTicks);
     }
 
     @Override
-    public void renderBackground(MatrixStack matrixStack) {
+    public void renderBackground(@Nonnull MatrixStack matrixStack) {
         super.renderBackground(matrixStack);
         assert this.minecraft != null;
         this.minecraft.getTextureManager().bindTexture(bg);

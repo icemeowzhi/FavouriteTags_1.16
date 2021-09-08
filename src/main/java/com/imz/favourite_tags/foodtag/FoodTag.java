@@ -88,4 +88,11 @@ public class FoodTag implements INBTSerializable<CompoundNBT>,ITag
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof FoodTag){
+            return ((FoodTag) obj).getRegistryName().equals(getRegistryName());
+        }
+        return false;
+    }
 }

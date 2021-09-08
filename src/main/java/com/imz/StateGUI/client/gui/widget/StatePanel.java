@@ -6,17 +6,14 @@ import com.imz.StateGUI.client.gui.StateGUI;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.FocusableGui;
 import net.minecraft.client.gui.IGuiEventListener;
 import net.minecraft.client.gui.IRenderable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.client.gui.GuiUtils;
 import org.lwjgl.opengl.GL11;
 
@@ -29,10 +26,10 @@ import java.util.List;
  * @date 2021/8/6
  * @apiNote
  */
-public abstract class StatusPanel extends FocusableGui implements IRenderable {
+public abstract class StatePanel extends FocusableGui implements IRenderable {
     private final Minecraft client;
-    private final ResourceLocation widgets_icon = new ResourceLocation(ModStateGUI.MODID, "textures/gui/widgets.png");
-    private StateGUI parent;
+    private final ResourceLocation widgets_icon = new ResourceLocation(ModStateGUI.MODID, "textures/gui/stategui_widget.png");
+    protected StateGUI parent;
     protected final int width;
     protected final int height;
     protected final int top;
@@ -42,14 +39,14 @@ public abstract class StatusPanel extends FocusableGui implements IRenderable {
     protected boolean scrolling;
     protected float scrollDistance;
     protected boolean captureMouse = true;
-    protected final int border = 4;
+    protected final int border = 7;
     protected final int barWidth = 12;
     protected final int barLeft;
     protected List<IReorderingProcessor> lines;
 
-    public StatusPanel(Minecraft client, StateGUI parent)
+    public StatePanel(StateGUI parent)
     {
-        this.client = client;
+        this.client = Minecraft.getInstance();
         this.width = 192;
         this.height = 205;
         this.top = parent.guiTop+22;
@@ -60,9 +57,6 @@ public abstract class StatusPanel extends FocusableGui implements IRenderable {
         this.lines = Lists.newArrayList();
         this.parent = parent;
 
-        for (int i = 0; i < 50; i++) {
-            lines.add(new StringTextComponent("test"+i).func_241878_f());
-        }
     }
 
     protected abstract int getContentHeight();
@@ -70,7 +64,7 @@ public abstract class StatusPanel extends FocusableGui implements IRenderable {
     protected void drawBackground() {}
 
 
-    protected abstract void drawPanel(MatrixStack mStack, int entryRight, int relativeY, Tessellator tess, int mouseX, int mouseY);
+    protected abstract void drawPanel(MatrixStack mStack, int entryRight, int relativeY, Tessellator tess, int mouseX, int mouseY, float partialTicks);
 
     protected boolean clickPanel(double mouseX, double mouseY, int button) { return false; }
 
@@ -152,20 +146,6 @@ public abstract class StatusPanel extends FocusableGui implements IRenderable {
 
     private int getBarHeight()
     {
-
-        /*
-        int barHeight = (height * height) / this.getContentHeight();
-
-        if (barHeight < 32) barHeight = 32;
-
-        if (barHeight > height - border*2)
-            barHeight = height - border*2;
-
-        return barHeight;
-
-         */
-
-
         return 15;
     }
 
@@ -197,27 +177,8 @@ public abstract class StatusPanel extends FocusableGui implements IRenderable {
         GL11.glScissor((int)(left  * scale), (int)(client.getMainWindow().getFramebufferHeight() - (bottom * scale)),
                 (int)(width * scale), (int)(height * scale));
 
-        if (this.client.world != null)
-        {
-            this.drawGradientRect(matrix, this.left, this.top, this.right, this.bottom, 0xC0101010, 0xD0101010);
-        }
-        else // Draw dark dirt background
-        {
-            RenderSystem.disableLighting();
-            RenderSystem.disableFog();
-            this.client.getTextureManager().bindTexture(AbstractGui.BACKGROUND_LOCATION);
-            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-            final float texScale = 32.0F;
-            worldr.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
-            worldr.pos(this.left,  this.bottom, 0.0D).tex(this.left  / texScale, (this.bottom + (int)this.scrollDistance) / texScale).color(0x20, 0x20, 0x20, 0xFF).endVertex();
-            worldr.pos(this.right, this.bottom, 0.0D).tex(this.right / texScale, (this.bottom + (int)this.scrollDistance) / texScale).color(0x20, 0x20, 0x20, 0xFF).endVertex();
-            worldr.pos(this.right, this.top,    0.0D).tex(this.right / texScale, (this.top    + (int)this.scrollDistance) / texScale).color(0x20, 0x20, 0x20, 0xFF).endVertex();
-            worldr.pos(this.left,  this.top,    0.0D).tex(this.left  / texScale, (this.top    + (int)this.scrollDistance) / texScale).color(0x20, 0x20, 0x20, 0xFF).endVertex();
-            tess.draw();
-        }
-
         int baseY = this.top + border - (int)this.scrollDistance;
-        this.drawPanel(matrix, right, baseY, tess, mouseX, mouseY);
+        this.drawPanel(matrix, right, baseY, tess, mouseX, mouseY, partialTicks);
 
         RenderSystem.disableDepthTest();
 
@@ -231,29 +192,6 @@ public abstract class StatusPanel extends FocusableGui implements IRenderable {
             {
                 barTop = this.top;
             }
-
-            RenderSystem.disableTexture();
-            worldr.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
-            worldr.pos(barLeft,              this.bottom,  0.0D).tex(0.0F, 1.0F).color(0x00, 0x00, 0x00, 0xFF).endVertex();
-            worldr.pos(barLeft + barWidth, this.bottom,  0.0D).tex(1.0F, 1.0F).color(0x00, 0x00, 0x00, 0xFF).endVertex();
-            worldr.pos(barLeft + barWidth, this.top,     0.0D).tex(1.0F, 0.0F).color(0x00, 0x00, 0x00, 0xFF).endVertex();
-            worldr.pos(barLeft,              this.top,     0.0D).tex(0.0F, 0.0F).color(0x00, 0x00, 0x00, 0xFF).endVertex();
-            tess.draw();
-            /*
-            worldr.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
-            worldr.pos(barLeft,            barTop + barHeight, 0.0D).tex(0.0F, 1.0F).color(0x80, 0x80, 0x80, 0xFF).endVertex();
-            worldr.pos(barLeft + barWidth, barTop + barHeight, 0.0D).tex(1.0F, 1.0F).color(0x80, 0x80, 0x80, 0xFF).endVertex();
-            worldr.pos(barLeft + barWidth, barTop,             0.0D).tex(1.0F, 0.0F).color(0x80, 0x80, 0x80, 0xFF).endVertex();
-            worldr.pos(barLeft,            barTop,             0.0D).tex(0.0F, 0.0F).color(0x80, 0x80, 0x80, 0xFF).endVertex();
-            tess.draw();
-            worldr.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
-            worldr.pos(barLeft,                barTop + barHeight - 1, 0.0D).tex(0.0F, 1.0F).color(0xC0, 0xC0, 0xC0, 0xFF).endVertex();
-            worldr.pos(barLeft + barWidth - 1, barTop + barHeight - 1, 0.0D).tex(1.0F, 1.0F).color(0xC0, 0xC0, 0xC0, 0xFF).endVertex();
-            worldr.pos(barLeft + barWidth - 1, barTop,                 0.0D).tex(1.0F, 0.0F).color(0xC0, 0xC0, 0xC0, 0xFF).endVertex();
-            worldr.pos(barLeft,                barTop,                 0.0D).tex(0.0F, 0.0F).color(0xC0, 0xC0, 0xC0, 0xFF).endVertex();
-            tess.draw();
-
-             */
             RenderSystem.enableTexture();
             Minecraft.getInstance().getTextureManager().bindTexture(widgets_icon);
             Screen.blit(matrix,barLeft,barTop,0,0,12,15,256,256);

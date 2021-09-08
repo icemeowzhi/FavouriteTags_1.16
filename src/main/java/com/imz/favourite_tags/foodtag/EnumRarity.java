@@ -10,7 +10,7 @@ import net.minecraft.util.text.ITextComponent;
  */
 public enum EnumRarity {
     COMMON(FavouriteTag.translationKey("tag.rarity.common")),
-    UNCOMMON(FavouriteTag.translationKey("tag.rarity,uncommon")),
+    UNCOMMON(FavouriteTag.translationKey("tag.rarity.uncommon")),
     RARE(FavouriteTag.translationKey("tag.rarity,rare")),
     EPIC(FavouriteTag.translationKey("tag.rarity.epic"));
 
@@ -18,5 +18,6 @@ public enum EnumRarity {
     EnumRarity(ITextComponent displayName){
         this.displayName = displayName;
     }
+    public ITextComponent getDisplayName(){return displayName;}
 
 }

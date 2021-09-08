@@ -49,7 +49,7 @@ public class PlayerTagCapabilityInitializer {
         for (int i = 0; i < epic; i++) {
             FoodTag foodTag =allTags.remove(random.nextInt(allTags.size()));
             foodLike.put(foodTag,
-                    new PlayerFoodTagState(true, EnumRarity.EPIC,false));
+                    new PlayerFoodTagState(true, EnumRarity.EPIC,false,true));
             playerFedUpCapabilityLazyOptional.ifPresent((cap)-> {
                 for (FoodTag foodTagInFedUpList:cap.getFoodTagFedUp().keySet()){
                     if (foodTag.match(foodTagInFedUpList)){
@@ -65,7 +65,7 @@ public class PlayerTagCapabilityInitializer {
         for (int i = 0; i < rare; i++) {
             FoodTag foodTag = allTags.remove(random.nextInt(allTags.size()));
             foodLike.put(foodTag,
-                    new PlayerFoodTagState(true, EnumRarity.RARE,false));
+                    new PlayerFoodTagState(true, EnumRarity.RARE,false,true));
             playerFedUpCapabilityLazyOptional.ifPresent((cap)-> {
                 for (FoodTag foodTagInFedUpList:cap.getFoodTagFedUp().keySet()){
                     if (foodTag.match(foodTagInFedUpList)){
@@ -78,7 +78,7 @@ public class PlayerTagCapabilityInitializer {
         for (int i = 0; i < uncommon; i++) {
             FoodTag foodTag = allTags.remove(random.nextInt(allTags.size()));
             foodLike.put(foodTag,
-                    new PlayerFoodTagState(true, EnumRarity.UNCOMMON,false));
+                    new PlayerFoodTagState(true, EnumRarity.UNCOMMON,false,true));
             playerFedUpCapabilityLazyOptional.ifPresent((cap)-> {
                 for (FoodTag foodTagInFedUpList:cap.getFoodTagFedUp().keySet()){
                     if (foodTag.match(foodTagInFedUpList)){
@@ -91,7 +91,7 @@ public class PlayerTagCapabilityInitializer {
         for (int i = 0; i < common; i++) {
             FoodTag foodTag = allTags.remove(random.nextInt(allTags.size()));
             foodLike.put(foodTag,
-                    new PlayerFoodTagState(true, EnumRarity.COMMON,false));
+                    new PlayerFoodTagState(true, EnumRarity.COMMON,false,true));
             playerFedUpCapabilityLazyOptional.ifPresent((cap)-> {
                 for (FoodTag foodTagInFedUpList:cap.getFoodTagFedUp().keySet()){
                     if (foodTag.match(foodTagInFedUpList)){
@@ -120,7 +120,7 @@ public class PlayerTagCapabilityInitializer {
 
         for (int i = 0; i < dislike; i++) {
             foodDislike.put(allTags.remove(random.nextInt(allTags.size())),
-                    new PlayerFoodTagState(false, EnumRarity.COMMON,false));
+                    new PlayerFoodTagState(false, EnumRarity.COMMON,false,true));
         }
 
         return foodDislike;
