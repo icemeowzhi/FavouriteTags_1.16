@@ -16,7 +16,7 @@ import java.util.List;
  * @date 2021/9/8
  * @apiNote
  */
-@Mod.EventBusSubscriber(value = Dist.CLIENT,modid = ModStateGUI.MODID)
+@Mod.EventBusSubscriber(value = Dist.CLIENT,modid = ModStateGUI.MODID,bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PanelInitializer {
     private static List<Class<? extends StatePanel>> panelClassList;
 

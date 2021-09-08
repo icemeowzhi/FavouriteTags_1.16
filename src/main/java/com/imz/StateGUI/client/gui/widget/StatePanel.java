@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.client.gui.GuiUtils;
 import org.lwjgl.opengl.GL11;
 
@@ -32,16 +33,16 @@ public abstract class StatePanel extends FocusableGui implements IRenderable {
     protected StateGUI parent;
     protected final int width;
     protected final int height;
-    protected final int top;
-    protected final int bottom;
-    protected final int right;
-    protected final int left;
+    protected int top;
+    protected int bottom;
+    protected int right;
+    protected int left;
     protected boolean scrolling;
     protected float scrollDistance;
     protected boolean captureMouse = true;
     protected final int border = 7;
     protected final int barWidth = 12;
-    protected final int barLeft;
+    protected int barLeft;
     protected List<IReorderingProcessor> lines;
 
     public StatePanel(StateGUI parent)
@@ -49,11 +50,15 @@ public abstract class StatePanel extends FocusableGui implements IRenderable {
         this.client = Minecraft.getInstance();
         this.width = 192;
         this.height = 205;
+
+        //这五个值在错误的时候调用了parent，导致它们的值不可信
+        //这些值会在渲染时刷新
         this.top = parent.guiTop+22;
         this.left = parent.guiLeft+120;
         this.bottom = height + this.top;
         this.right = width + this.left;
         this.barLeft = this.left + this.width - barWidth;
+
         this.lines = Lists.newArrayList();
         this.parent = parent;
 
@@ -168,6 +173,11 @@ public abstract class StatePanel extends FocusableGui implements IRenderable {
     public void render(@Nonnull MatrixStack matrix, int mouseX, int mouseY, float partialTicks)
     {
         this.drawBackground();
+        top = parent.guiTop+22;
+        left = parent.guiLeft+120;
+        bottom = height + this.top;
+        right = width + this.left;
+        barLeft = this.left + this.width - barWidth;
 
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder worldr = tess.getBuffer();
@@ -216,5 +226,7 @@ public abstract class StatePanel extends FocusableGui implements IRenderable {
     {
         return Collections.emptyList();
     }
+
+    public abstract ITextComponent getTitle();
 }
 

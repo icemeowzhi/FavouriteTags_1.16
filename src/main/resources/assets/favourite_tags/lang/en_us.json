@@ -71,7 +71,6 @@
 
   "tag.label.like": "喜欢的食物",
   "tag.label.dislike": "不喜欢的食物",
-  "tag.gui.not.clicked": "点选左侧栏目，查看角色属性。",
   "feeling.dislike.message1": "算了吧，还是不要尝试了",
   "feeling.dislike.message2": "我不喜欢这个",
   "feeling.dislike.message3": "不太喜欢的味道...",
@@ -100,5 +99,8 @@
   "favourite_tags.tag.rarity.common": "常见",
   "favourite_tags.tag.rarity.uncommon": "罕见",
   "favourite_tags.tag.rarity.rare": "稀有",
-  "favourite_tags.tag.rarity.epic": "史诗"
+  "favourite_tags.tag.rarity.epic": "史诗",
+
+  "tag.category.interest": "兴趣",
+  "tag.panel.welcome.text": "点选左侧栏目，查看角色属性。"
 }

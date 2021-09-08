@@ -10,8 +10,10 @@ import com.imz.favourite_tags.foodtag.FoodTag;
 import com.imz.favourite_tags.foodtag.PlayerFedUpState;
 import com.imz.favourite_tags.foodtag.PlayerFoodTagState;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IReorderingProcessor;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -46,14 +48,13 @@ public class TagPanel extends StatePanel {
         //初始化
         AtomicReference<Map<FoodTag, PlayerFoodTagState>> foodLike = new AtomicReference<>();
         AtomicReference<Map<FoodTag, PlayerFoodTagState>> foodDislike = new AtomicReference<>();
-        assert parent.getMinecraft().player != null;
-        parent.getMinecraft().player.getCapability(CapabilityHandler.PLAYER_TAG_CAPABILITY).ifPresent((cap)->{
+        Minecraft.getInstance().player.getCapability(CapabilityHandler.PLAYER_TAG_CAPABILITY).ifPresent((cap)->{
             foodLike.set(cap.getLike());
             foodDislike.set(cap.getDisLike());
         });
 
         AtomicReference<Map<FoodTag, PlayerFedUpState>> foodFedUp = new AtomicReference<>();
-        parent.getMinecraft().player.getCapability(CapabilityHandler.PLAYER_FED_UP_CAPABILITY).ifPresent((cap)->{
+        Minecraft.getInstance().player.getCapability(CapabilityHandler.PLAYER_FED_UP_CAPABILITY).ifPresent((cap)->{
             foodFedUp.set(cap.getFoodTagFedUp());
         });
 
@@ -141,6 +142,11 @@ public class TagPanel extends StatePanel {
     }
 
     @Override
+    public ITextComponent getTitle() {
+        return new TranslationTextComponent("tag.category.interest");
+    }
+
+    @Override
     protected int getContentHeight() {
         int height = 43;
         height += (15 * ((tagLikeList.size()+1) /2));
@@ -159,6 +165,7 @@ public class TagPanel extends StatePanel {
         int column = 1;
         int renderX;
         for (TagWidget tagWidget:tagLikeWidgetList){
+
             if (column == 1){
                 renderX = left+7;
             }else {
