@@ -10,5 +10,4 @@ import net.minecraft.util.text.ITextComponent;
 public interface ITag {
     String getRegistryName();
     ITextComponent getDisplayName();
-    void effect();
 }

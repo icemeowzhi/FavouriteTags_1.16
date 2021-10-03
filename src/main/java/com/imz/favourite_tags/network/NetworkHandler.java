@@ -45,6 +45,11 @@ public class NetworkHandler {
                 .decoder(PlayerFedUpPack::new)
                 .consumer(PlayerFedUpPack::handler)
                 .add();
+        INSTANCE.messageBuilder(SoundPack.class, nextID())
+                .encoder(SoundPack::toBytes)
+                .decoder(SoundPack::new)
+                .consumer(SoundPack::handler)
+                .add();
     }
 
     @SubscribeEvent

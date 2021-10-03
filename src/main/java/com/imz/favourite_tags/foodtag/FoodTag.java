@@ -38,11 +38,6 @@ public class FoodTag implements INBTSerializable<CompoundNBT>,ITag
         return FavouriteTag.translationKey("tag",registryName,"name");
     }
 
-    @Override
-    public void effect() {
-
-    }
-
     public EnumFoodTagType getTagType() {
         return tagType;
     }
