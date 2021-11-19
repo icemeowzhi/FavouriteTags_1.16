@@ -1,5 +1,7 @@
 package com.imz.favourite_tags.foodtag;
 
+import com.google.common.collect.Lists;
+import com.imz.favourite_tags.FavouriteTag;
 import com.imz.favourite_tags.capability.CapabilityHandler;
 import com.imz.favourite_tags.intance.TaggedFoodInitializer;
 import net.minecraft.block.Blocks;
@@ -9,7 +11,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -20,11 +21,18 @@ import java.util.Map;
  */
 
 //TODO:cake support test
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = FavouriteTag.MODID)
 public class CakeSupport {
     private static Map<FoodTag, PlayerFoodTagState> playerTagLike;
     private static Map<FoodTag, PlayerFoodTagState> playerTagDislike;
-    private static List<FoodTag> cakeTag = Arrays.asList(TaggedFoodInitializer.getFoodTagMap().get(Items.CAKE));
+    private static List<FoodTag> cakeTag;
+/*
+    @SubscribeEvent(priority = EventPriority.LOW)
+    public static void onSetup(FMLCommonSetupEvent event){
+         cakeTag = Lists.newArrayList(TaggedFoodInitializer.getFoodTagMap().get(Items.CAKE));
+    }
+
+ */
 
     @SubscribeEvent
     public static void onCakeRightClicked(PlayerInteractEvent.RightClickBlock event){
@@ -32,6 +40,8 @@ public class CakeSupport {
         if (event.getPlayer().getEntityWorld().isRemote){
             return;
         }
+
+        cakeTag = Lists.newArrayList(TaggedFoodInitializer.getFoodTagMap().get(Items.CAKE));
 
         if (event.getWorld().getBlockState(event.getHitVec().getPos()).getBlock().equals(Blocks.CAKE)){
             if (event.getPlayer().canEat(false)){
