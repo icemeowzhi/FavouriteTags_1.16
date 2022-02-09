@@ -1,18 +1,16 @@
 package com.imz.favourite_tags.foodtag;
 
 import com.imz.favourite_tags.capability.CapabilityHandler;
-import com.imz.favourite_tags.network.FoodStatSyncPack;
 import com.imz.favourite_tags.network.NetworkHandler;
 import com.imz.favourite_tags.network.SoundPack;
 import com.imz.favourite_tags.util.CoolDown;
 import com.imz.favourite_tags.util.RandomText;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.FoodStats;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
@@ -21,6 +19,8 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -32,7 +32,8 @@ import java.util.*;
  */
 @Mod.EventBusSubscriber
 public class FoodTagEffectLogic {
-    private static final CoolDown coolDown = new CoolDown(6000);
+    private static final Logger LOGGER = LogManager.getLogger();
+    private static final CoolDown coolDown = new CoolDown(6000);//6000
     private static Map<FoodTag, PlayerFoodTagState> playerTagLike;
     private static Map<FoodTag, PlayerFoodTagState> playerTagDislike;
     private static List<FoodTag> foodTags;
@@ -72,21 +73,22 @@ public class FoodTagEffectLogic {
         if (!coolDown.isActive()){
             coolDown.startCoolDown();
 
-            assert Minecraft.getInstance().world != null;
-
             //播放音效
-            NetworkHandler.INSTANCE.send(
-                    PacketDistributor.PLAYER.with(
-                            () -> (ServerPlayerEntity) playerEntity
-                    ),
-                    new SoundPack(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS,1f,1f));
+            //很抱歉，因为cooldown的问题暂时无法写成较为直接的形式。
+            if (!playerEntity.getEntityWorld().isRemote){
+                NetworkHandler.INSTANCE.send(
+                        PacketDistributor.PLAYER.with(
+                                () -> (ServerPlayerEntity) playerEntity
+                        ),
+                        new SoundPack(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS,1f,1f));
+            }
 
             //给予随机三种状态
             EffectInstance effectInstance;
             switch (random.nextInt(4)){
                 case 1:
                     effectInstance = new EffectInstance(Effects.SATURATION,
-                            200,0,false,true,true);
+                            100,0,false,true,true);
 
                     break; case 2: effectInstance = new EffectInstance(Effects.LUCK,
                         2400,1,false,true,true);
@@ -219,24 +221,19 @@ public class FoodTagEffectLogic {
         List<ITextComponent> messages = new ArrayList<>();
 
         //有10%获得十秒反胃
-        if (random.nextInt(11) == 1){
+        if (random.nextInt(10) == 1){
             badEffect = true;
             playerEntity.addPotionEffect(new EffectInstance(Effects.NAUSEA,
                     200,1,false,true,true));
         }
 
         //有30%不增加饱食度
-        if (random.nextInt(11) <= 3){
+        if (random.nextInt(10) < 3){
             if (!playerEntity.isCreative()){
-                playerEntity.getFoodStats().addStats(-foodLevel,0);
-
-                CompoundNBT nbt = new CompoundNBT();
-                playerEntity.getFoodStats().write(nbt);
-                NetworkHandler.INSTANCE.send(
-                        PacketDistributor.PLAYER.with(
-                                () -> (ServerPlayerEntity) playerEntity
-                        ),
-                        new FoodStatSyncPack(nbt));
+                //LOGGER.info("No hunger healing this time.");
+                FoodStats foodStats = playerEntity.getFoodStats();
+                foodStats.addStats(-foodLevel,0);
+                //LOGGER.info("Now FoodStat:[hunger:{},saturation:{}]",foodStats.getFoodLevel(),foodStats.getSaturationLevel());
 
                 messages.add(RandomText.getNonHealMessage());
             }
@@ -256,9 +253,6 @@ public class FoodTagEffectLogic {
 
     @SubscribeEvent
     public static void onUseItemStart(LivingEntityUseItemEvent.Start event){
-        if (event.getEntity().getEntityWorld().isRemote){
-            return;
-        }
 
         if (event.getEntity() instanceof PlayerEntity){
             ItemStack itemStack = event.getItem();
@@ -308,9 +302,6 @@ public class FoodTagEffectLogic {
 
     @SubscribeEvent
     public static void onUseItemFinish(LivingEntityUseItemEvent.Finish event){
-        if (event.getEntity().getEntityWorld().isRemote){
-            return;
-        }
 
         if (event.getEntity() instanceof PlayerEntity){
             ItemStack itemStack = event.getItem();
@@ -359,7 +350,7 @@ public class FoodTagEffectLogic {
     }
 
     @SubscribeEvent
-    public static void onTick(TickEvent.ServerTickEvent event){
+    public static void onServerTick(TickEvent.ServerTickEvent event){
         coolDown.processCoolDown();
     }
 

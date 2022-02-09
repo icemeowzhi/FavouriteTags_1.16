@@ -49,15 +49,7 @@ public abstract class StatePanel extends FocusableGui implements IRenderable {
     {
         this.client = Minecraft.getInstance();
         this.width = 192;
-        this.height = 205;
-
-        //这五个值在错误的时候调用了parent，导致它们的值不可信
-        //这些值会在渲染时刷新
-        this.top = parent.guiTop+22;
-        this.left = parent.guiLeft+120;
-        this.bottom = height + this.top;
-        this.right = width + this.left;
-        this.barLeft = this.left + this.width - barWidth;
+        this.height = 200;
 
         this.lines = Lists.newArrayList();
         this.parent = parent;
@@ -168,16 +160,21 @@ public abstract class StatePanel extends FocusableGui implements IRenderable {
         return false;
     }
 
+    //将对象创建与初始化分开，使用init方法获取可信值
+    //注：不应该在render()内更新位置参数
+    public void init(){
+        this.top = parent.guiTop+18;
+        this.left = parent.guiLeft+120;
+        this.bottom = height + this.top;
+        this.right = width + this.left;
+        this.barLeft = this.left + this.width - barWidth;
+    }
+
     @SuppressWarnings("deprecation")
     @Override
     public void render(@Nonnull MatrixStack matrix, int mouseX, int mouseY, float partialTicks)
     {
         this.drawBackground();
-        top = parent.guiTop+22;
-        left = parent.guiLeft+120;
-        bottom = height + this.top;
-        right = width + this.left;
-        barLeft = this.left + this.width - barWidth;
 
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder worldr = tess.getBuffer();

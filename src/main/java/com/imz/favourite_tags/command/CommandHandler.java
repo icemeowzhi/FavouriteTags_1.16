@@ -35,5 +35,10 @@ public class CommandHandler {
                         .executes(TagGUICommand.instance)
         );
 
+        LiteralCommandNode<CommandSource> debug = dispatcher.register(
+                Commands.literal("debug").requires((commandSource) -> commandSource.hasPermissionLevel(0))
+                        .executes(DebugCommand.instance)
+        );
+
     }
 }

@@ -46,6 +46,7 @@ public class CoolDown {
             nowCoolDown++;
             if (nowCoolDown >= coolDown){
                 active = false;
+                nowCoolDown = 0;
             }
         }else{
             if (nowCoolDown != 0){

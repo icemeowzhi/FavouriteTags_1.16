@@ -233,4 +233,12 @@ public class TagPanel extends StatePanel {
         }
     }
 
+    //TODO：关于panel的测试
+//    @Override
+//    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+//        if (super.mouseClicked(mouseX, mouseY, button)){
+//            System.out.println("panel clicked");
+//        }
+//        return super.mouseClicked(mouseX, mouseY, button);
+//    }
 }

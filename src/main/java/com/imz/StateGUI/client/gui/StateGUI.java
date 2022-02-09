@@ -33,7 +33,7 @@ public class StateGUI extends Screen {
     public final ResourceLocation bg = new ResourceLocation(ModStateGUI.MODID, "textures/gui/stategui_background.png");
     public final ResourceLocation widget = new ResourceLocation(ModStateGUI.MODID, "textures/gui/stategui_widget.png");
     public final int GUI_WIDTH = 332;
-    public final int GUI_HEIGHT = 249;
+    public final int GUI_HEIGHT = 236;
     public int guiLeft = (this.width - GUI_WIDTH) / 2;
     public int guiTop = (this.height - GUI_HEIGHT) / 2;
 
@@ -45,6 +45,9 @@ public class StateGUI extends Screen {
     private List<StateButton> allButton;
     private ImageButton PgUpBtn;
     private ImageButton PgDnBtn;
+
+    int firstBtnIndex;
+    int lastBtnIndex;
 
     protected StateGUI(ITextComponent titleIn) throws RuntimeException {
         super(titleIn);
@@ -119,49 +122,50 @@ public class StateGUI extends Screen {
                 return new StringTextComponent("welcome");
             }
         };
+
+        for (StatePanel panel:allPanel){
+            panel.init();
+        }
+
         this.children.add(currentPanel);
         this.children.addAll(allPanel);
         this.children.addAll(allButton);
 
         //初始化翻页
-        PgUpBtn = new ImageButton(guiLeft+28,guiTop+213,11,17,112,32,17,widget,(btn)->{
+        PgUpBtn = new ImageButton(guiLeft+28,guiTop+209,11,17,112,32,17,widget,(btn)->{
             if (page>1) page--;
         });
-        PgDnBtn = new ImageButton(guiLeft+80,guiTop+213,11,17,128,32,17,widget,(btn)->{
+        PgDnBtn = new ImageButton(guiLeft+80,guiTop+209,11,17,128,32,17,widget,(btn)->{
            if(page<allPage) page++;
         });
 
         for (StateButton button:allButton){
             button.active = true;
         }
+
+        if (allButton.size() == 0){
+            firstBtnIndex = 0;
+        }else firstBtnIndex = (page-1)*9+1;
+        lastBtnIndex = Math.min(allButton.size(),page*9);
+
+        buttonsThisPage = allButton.subList(firstBtnIndex - 1,lastBtnIndex);
+
+        for (int i = 0; i < buttonsThisPage.size(); i++) {
+            buttonsThisPage.get(i).setPosition(guiLeft+20,guiTop+18+i*20);
+        }
+
     }
 
     @Override
     public void render(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         super.render(matrixStack, mouseX, mouseY, partialTicks);
-        guiLeft = (this.width - GUI_WIDTH) / 2;
-        guiTop = (this.height - GUI_HEIGHT) / 2;
         renderBackground(matrixStack);
         //渲染按钮
         PgUpBtn.render(matrixStack,mouseX,mouseY,partialTicks);
         PgDnBtn.render(matrixStack,mouseX,mouseY,partialTicks);
 
-        int firstBtnIndex;
-        if (allButton.size() == 0){
-            firstBtnIndex = 0;
-        }else firstBtnIndex = (page-1)*9+1;
-
-        int lastBtnIndex = Math.min(allButton.size(),page*9);
-
-        //--------
-        //System.out.println(firstBtnIndex);
-        //System.out.println(lastBtnIndex);
-
-        buttonsThisPage = allButton.subList(firstBtnIndex - 1,lastBtnIndex);
-
-        for (int i = 0; i < buttonsThisPage.size(); i++) {
-            buttonsThisPage.get(i).setPosition(guiLeft+20,guiTop+22+i*20);
-            buttonsThisPage.get(i).render(matrixStack,mouseX,mouseY,partialTicks);
+        for (StateButton stateButton : buttonsThisPage) {
+            stateButton.render(matrixStack, mouseX, mouseY, partialTicks);
         }
 
         //渲染panel
@@ -175,9 +179,9 @@ public class StateGUI extends Screen {
         super.renderBackground(matrixStack);
         assert this.minecraft != null;
         this.minecraft.getTextureManager().bindTexture(bg);
-        blit(matrixStack,guiLeft,guiTop,0,0,332,249,332,249);
+        blit(matrixStack,guiLeft,guiTop,0,0,GUI_WIDTH,GUI_HEIGHT,GUI_WIDTH,GUI_HEIGHT);
         this.minecraft.getTextureManager().bindTexture(widget);
-        blit(matrixStack,guiLeft+45,guiTop+213,112,0,29,17);
+        blit(matrixStack,guiLeft+45,guiTop+209,112,0,29,17);
     }
 
     @Override

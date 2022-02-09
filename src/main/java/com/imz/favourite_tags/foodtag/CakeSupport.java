@@ -37,12 +37,6 @@ public class CakeSupport {
     @SubscribeEvent
     public static void onCakeRightClicked(PlayerInteractEvent.RightClickBlock event){
 
-        if (event.getPlayer().getEntityWorld().isRemote){
-            return;
-        }
-
-        cakeTag = Lists.newArrayList(TaggedFoodInitializer.getFoodTagMap().get(Items.CAKE));
-
         if (event.getWorld().getBlockState(event.getHitVec().getPos()).getBlock().equals(Blocks.CAKE)){
             if (event.getPlayer().canEat(false)){
                 PlayerEntity playerEntity = (PlayerEntity) event.getEntity();
@@ -54,6 +48,8 @@ public class CakeSupport {
                 if (playerTagLike == null || playerTagDislike == null){
                     return;
                 }
+
+                cakeTag = Lists.newArrayList(TaggedFoodInitializer.getFoodTagMap().get(Items.CAKE));
 
                 for (FoodTag itemTag: cakeTag){
 
@@ -74,7 +70,7 @@ public class CakeSupport {
                                     break;
                                 case COMMON:
                                     FoodTagEffectLogic.commonEffectStart(playerEntity);
-                                    FoodTagEffectLogic.commonEffectFinish(playerEntity,2,0.1f);
+                                    FoodTagEffectLogic.commonEffectFinish(playerEntity,2,0f);
                                     break;
                                 default:
                             }
@@ -84,7 +80,8 @@ public class CakeSupport {
                     for (FoodTag playerTag : playerTagDislike.keySet()){
                         if (itemTag.match(playerTag)){
                             FoodTagEffectLogic.badEffectStart(playerEntity);
-                            FoodTagEffectLogic.badEffectFinish(playerEntity,2,0.1f);
+                            FoodTagEffectLogic.badEffectFinish(playerEntity,2,0f);
+                            return;
                         }
                     }
                 }
