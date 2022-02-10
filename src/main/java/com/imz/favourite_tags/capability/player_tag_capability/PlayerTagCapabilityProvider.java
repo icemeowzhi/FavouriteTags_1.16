@@ -3,6 +3,8 @@ package com.imz.favourite_tags.capability.player_tag_capability;
 import com.imz.favourite_tags.capability.CapabilityHandler;
 import com.imz.favourite_tags.foodtag.FoodTag;
 import com.imz.favourite_tags.foodtag.PlayerFoodTagState;
+import com.imz.favourite_tags.intance.TagInitializer;
+import com.imz.favourite_tags.intance.TaggedFoodInitializer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
@@ -59,7 +61,6 @@ public class PlayerTagCapabilityProvider implements ICapabilityProvider, INBTSer
             List<FoodTag> ignoredTag = new ArrayList<>();
 
             //1.阻止存在已经注册的标签，但是没有这个标签的食物的情况下将这个标签赋予玩家。
-            /*
             for (FoodTag foodTag : TagInitializer.getAllFoodTags()){
                 boolean isValidTag = false;
                 for (FoodTag[] tagsInFood : TaggedFoodInitializer.getFoodTagMap().values()){
@@ -69,8 +70,6 @@ public class PlayerTagCapabilityProvider implements ICapabilityProvider, INBTSer
                 }
                 if (!isValidTag){ignoredTag.add(foodTag);}
             }
-
-             */
 
             //2.保证tag的唯一性，生成tag。
             foodLike = PlayerTagCapabilityInitializer.createFoodLike(ignoredTag,player);
