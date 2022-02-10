@@ -26,13 +26,6 @@ public class CakeSupport {
     private static Map<FoodTag, PlayerFoodTagState> playerTagLike;
     private static Map<FoodTag, PlayerFoodTagState> playerTagDislike;
     private static List<FoodTag> cakeTag;
-/*
-    @SubscribeEvent(priority = EventPriority.LOW)
-    public static void onSetup(FMLCommonSetupEvent event){
-         cakeTag = Lists.newArrayList(TaggedFoodInitializer.getFoodTagMap().get(Items.CAKE));
-    }
-
- */
 
     @SubscribeEvent
     public static void onCakeRightClicked(PlayerInteractEvent.RightClickBlock event){
@@ -80,7 +73,7 @@ public class CakeSupport {
                     for (FoodTag playerTag : playerTagDislike.keySet()){
                         if (itemTag.match(playerTag)){
                             FoodTagEffectLogic.badEffectStart(playerEntity);
-                            FoodTagEffectLogic.badEffectFinish(playerEntity,2,0f);
+                            FoodTagEffectLogic.badEffectFinish(playerEntity,2,0f,true);
                             return;
                         }
                     }

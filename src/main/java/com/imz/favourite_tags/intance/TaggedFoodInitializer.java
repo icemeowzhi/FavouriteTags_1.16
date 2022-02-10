@@ -65,7 +65,7 @@ public class TaggedFoodInitializer {
         register(Items.TROPICAL_FISH          ,new FoodTag[]{TagInitializer.fish,TagInitializer.raw});
         register(Items.RABBIT_STEW            ,new FoodTag[]{TagInitializer.meat,TagInitializer.rabbit,TagInitializer.soup});
         register(Items.ENCHANTED_GOLDEN_APPLE ,new FoodTag[]{TagInitializer.apple,TagInitializer.fruit,TagInitializer.sweet,TagInitializer.golden});
-        register(Items.CAKE                   ,new FoodTag[]{TagInitializer.cake,TagInitializer.milk});
+        register(Items.CAKE                   ,new FoodTag[]{TagInitializer.cake,TagInitializer.milk,TagInitializer.egg,TagInitializer.carbohydrate});
     }
 
     public static void register(Item item, FoodTag[] tags){FOOD_TAG_MAP.put(item,tags);}

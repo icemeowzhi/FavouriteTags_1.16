@@ -55,7 +55,7 @@ public class TagInitializer {
     public static FoodTag eggplant     ;
     public static FoodTag coconut      ;
     public static FoodTag sakura       ;
-    public static FoodTag secret       ;
+    public static FoodTag meme         ;
     public static FoodTag grape        ;
     public static FoodTag cucumber     ;
     public static FoodTag paimon       ;
@@ -161,7 +161,7 @@ public class TagInitializer {
         eggplant   = registerIngredientTag("eggplant");
         coconut    = registerIngredientTag("coconut");
         sakura     = registerIngredientTag("sakura");
-        secret     = registerIngredientTag("secret");
+        meme = registerIngredientTag("secret");
         grape      = registerIngredientTag("grape");
         cucumber   = registerIngredientTag("cucumber");
         paimon     = registerIngredientTag("paimon");

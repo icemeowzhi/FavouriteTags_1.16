@@ -1,6 +1,7 @@
 package com.imz.favourite_tags.foodtag;
 
 import com.imz.favourite_tags.capability.CapabilityHandler;
+import com.imz.favourite_tags.network.FoodStatSyncPack;
 import com.imz.favourite_tags.network.NetworkHandler;
 import com.imz.favourite_tags.network.SoundPack;
 import com.imz.favourite_tags.util.CoolDown;
@@ -8,6 +9,7 @@ import com.imz.favourite_tags.util.RandomText;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.FoodStats;
@@ -74,18 +76,15 @@ public class FoodTagEffectLogic {
             coolDown.startCoolDown();
 
             //播放音效
-            //很抱歉，因为cooldown的问题暂时无法写成较为直接的形式。
-            if (!playerEntity.getEntityWorld().isRemote){
-                NetworkHandler.INSTANCE.send(
-                        PacketDistributor.PLAYER.with(
-                                () -> (ServerPlayerEntity) playerEntity
-                        ),
-                        new SoundPack(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS,1f,1f));
-            }
+            NetworkHandler.INSTANCE.send(
+                    PacketDistributor.PLAYER.with(
+                            () -> (ServerPlayerEntity) playerEntity
+                    ),
+                    new SoundPack(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS,1f,1f));
 
             //给予随机三种状态
             EffectInstance effectInstance;
-            switch (random.nextInt(4)){
+            switch (random.nextInt(3)){
                 case 1:
                     effectInstance = new EffectInstance(Effects.SATURATION,
                             100,0,false,true,true);
@@ -208,7 +207,7 @@ public class FoodTagEffectLogic {
 
             int foodLevel = Objects.requireNonNull(finishEvent.getItem().getItem().getFood()).getHealing();
 
-            badEffectFinish(playerEntity,foodLevel,0);
+            badEffectFinish(playerEntity,foodLevel,0,false);
         }
     }
 
@@ -216,7 +215,7 @@ public class FoodTagEffectLogic {
 
     }
 
-    public static void badEffectFinish(PlayerEntity playerEntity,int foodLevel,float saturation){
+    public static void badEffectFinish(PlayerEntity playerEntity,int foodLevel,float saturation,boolean isCake){
         boolean badEffect = false;
         List<ITextComponent> messages = new ArrayList<>();
 
@@ -230,10 +229,19 @@ public class FoodTagEffectLogic {
         //有30%不增加饱食度
         if (random.nextInt(10) < 3){
             if (!playerEntity.isCreative()){
-                //LOGGER.info("No hunger healing this time.");
                 FoodStats foodStats = playerEntity.getFoodStats();
                 foodStats.addStats(-foodLevel,0);
-                //LOGGER.info("Now FoodStat:[hunger:{},saturation:{}]",foodStats.getFoodLevel(),foodStats.getSaturationLevel());
+
+                //对非蛋糕类食物发同步包
+                if (!isCake){
+                    CompoundNBT nbt = new CompoundNBT();
+                    foodStats.write(nbt);
+                    NetworkHandler.INSTANCE.send(
+                            PacketDistributor.PLAYER.with(
+                                    () -> (ServerPlayerEntity) playerEntity
+                            ),
+                            new FoodStatSyncPack(nbt));
+                }
 
                 messages.add(RandomText.getNonHealMessage());
             }
@@ -253,6 +261,8 @@ public class FoodTagEffectLogic {
 
     @SubscribeEvent
     public static void onUseItemStart(LivingEntityUseItemEvent.Start event){
+
+        if (event.getEntity().getEntityWorld().isRemote){return;}
 
         if (event.getEntity() instanceof PlayerEntity){
             ItemStack itemStack = event.getItem();
@@ -303,6 +313,8 @@ public class FoodTagEffectLogic {
     @SubscribeEvent
     public static void onUseItemFinish(LivingEntityUseItemEvent.Finish event){
 
+        if (event.getEntity().getEntityWorld().isRemote){return;}
+
         if (event.getEntity() instanceof PlayerEntity){
             ItemStack itemStack = event.getItem();
             PlayerEntity playerEntity = (PlayerEntity) event.getEntity();
@@ -343,6 +355,7 @@ public class FoodTagEffectLogic {
                 for (FoodTag playerTag : playerTagDislike.keySet()){
                     if (itemTag.match(playerTag)){
                         badEffect(null,event);
+                        return;
                     }
                 }
             }
