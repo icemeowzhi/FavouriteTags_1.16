@@ -15,7 +15,7 @@ license="All rights reserved"
 # A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]]
 modId="favourite_tags" #mandatory
-version="0.1.0" #mandatory
+version="${file.jarVersion}"  #mandatory
 displayName="Favourite Tags" #mandatory
 logoFile="favourite_tag_logo.png" #optional
 credits="Mojang, and the minecraft community." #optional
