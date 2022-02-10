@@ -166,31 +166,35 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
-    //compileOnly fg.deobf("curse.maven:patchouli-306770:3086492")
-    //runtimeOnly fg.deobf("curse.maven:patchouli-306770:3086492")
+    runtimeOnly fg.deobf("curse.maven:jei-238222:3607578")
 
-    //compileOnly fg.deobf("com.sihenzhang:crockpot:1.16.3-1.5.2:release")
-    //runtimeOnly fg.deobf("com.sihenzhang:crockpot:1.16.3-1.5.2:release")
+    runtimeOnly fg.deobf("curse.maven:patchouli-306770:3459118")
 
-    //compileOnly fg.deobf("gloridifice:watersource:1.1.26-beta-1.16.5")
-    //runtimeOnly fg.deobf("gloridifice:watersource:1.1.26-beta-1.16.5")
+    runtimeOnly fg.deobf("curse.maven:crock-pot-404523:3568413")
 
-    //compileOnly fg.deobf("kogasastudio:ashihara:indev-01")
-    //runtimeOnly fg.deobf("kogasastudio:ashihara:indev-01")
+    runtimeOnly fg.deobf("curse.maven:water-source-388078:3554906")
 
-    //compileOnly fg.deobf("org.mineplugin.locusazzurro:locusazzurro_icaruswings:1.16.5-0.1.0")
-    //runtimeOnly fg.deobf("org.mineplugin.locusazzurro:locusazzurro_icaruswings:1.16.5-0.1.0")
+    runtimeOnly fg.deobf("kogasastudio:ashihara:indev-01")
 
-    //compileOnly fg.deobf("com.nmmoc7:the_elixir:1.1")
-    //runtimeOnly fg.deobf("com.nmmoc7:the_elixir:1.1")
+    runtimeOnly fg.deobf("curse.maven:icarus-wings-575424:3633351")
 
-    //compileOnly fg.deobf("cloud.lemonslice:teastory:4.1.5-Alpha")
-    //runtimeOnly fg.deobf("cloud.lemonslice:teastory:4.1.5-Alpha")
+    runtimeOnly fg.deobf("com.nmmoc7:the_elixir:1.1")
 
-    //runtimeOnly fg.deobf("cloud.lemonslice.silveroak:SilveroakOutpost-Forge-1.16.5:0.3.5-Beta")
+    runtimeOnly fg.deobf("cloud.lemonslice:teastory:4.1.5-Alpha")
 
-    //runtimeOnly fg.deobf("com.ldsdb:PaiMonFood:1.0")
+    runtimeOnly fg.deobf("cloud.lemonslice.silveroak:SilveroakOutpost-Forge-1.16.5:0.3.5-Beta")
 
+    runtimeOnly fg.deobf("com.ldsdb:PaiMonFood:1.0")
+
+    runtimeOnly fg.deobf("curse.maven:carrots-lib-311327:3423257")
+    runtimeOnly fg.deobf("curse.maven:vanillafoodpantry-mod-238170:3441203")
+
+    runtimeOnly fg.deobf("curse.maven:croptopia-fabric-415438:3369720")
+
+    runtimeOnly fg.deobf("curse.maven:pams-harvestcraft-2-food-core-372534:3190867")
+    runtimeOnly fg.deobf("curse.maven:pams-harvestcraft-2-trees-365460:3281234")
+    runtimeOnly fg.deobf("curse.maven:pams-harvestcraft-2-crops-361385:3276350")
+    runtimeOnly fg.deobf("curse.maven:pams-harvestcraft-2-food-extended-402231:3418627")
 
 
 

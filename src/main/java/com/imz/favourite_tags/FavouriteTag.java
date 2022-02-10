@@ -15,6 +15,7 @@ public class FavouriteTag
 
     public FavouriteTag() {
         LOGGER.info("Loading FavouriteTags 1.16...");
+        LOGGER.info("FavouriteTags is still in progress.If you find something wrong, please report bug via Github.");
         MinecraftForge.EVENT_BUS.register(this);
     }
 
